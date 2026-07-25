@@ -430,7 +430,7 @@ function Juggle() {
                 style={
                   {
                     offsetPath: `path('${c.d}')`,
-                    animationDelay: `${i * 0.7}s`,
+                    animationDelay: `${i * 0.62}s`,
                   } as React.CSSProperties
                 }
               />
