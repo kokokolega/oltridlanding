@@ -299,16 +299,155 @@ function Suite() {
 const leftNodes = ["Documents", "Mind Maps", "Presentations", "Sheets"];
 const rightNodes = ["To Do List", "Reminders", "Dashboards", "Ai Agents"];
 
+type Conn = { d: string; x2: number; y2: number };
+
+function buildPath(
+  sx: number,
+  sy: number,
+  ex: number,
+  ey: number,
+  fromLeft: boolean,
+): Conn {
+  const dx = ex - sx;
+  // Horizontal control offset creates a smooth horizontal-tangent curve.
+  const cx = Math.abs(dx) * 0.55;
+  const c1x = fromLeft ? sx + cx : sx - cx;
+  const c2x = fromLeft ? ex - cx : ex + cx;
+  const d = `M ${sx} ${sy} C ${c1x} ${sy}, ${c2x} ${ey}, ${ex} ${ey}`;
+  return { d, x2: ex, y2: ey };
+}
+
 function Juggle() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const centerRef = useRef<HTMLDivElement | null>(null);
+  const leftRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const rightRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const [conns, setConns] = useState<{ left: Conn[]; right: Conn[] }>({ left: [], right: [] });
+
+  const measure = () => {
+    const container = containerRef.current;
+    const center = centerRef.current;
+    if (!container || !center) return;
+    const cRect = container.getBoundingClientRect();
+    const ceRect = center.getBoundingClientRect();
+    const toLocal = (x: number, y: number) => ({
+      x: x - cRect.left,
+      y: y - cRect.top,
+    });
+
+    const left: Conn[] = [];
+    leftRefs.current.forEach((li) => {
+      if (!li) return;
+      const r = li.getBoundingClientRect();
+      const start = toLocal(r.right, r.top + r.height / 2);
+      // terminate at the left edge of the center card, vertically aligned to pill
+      const end = toLocal(ceRect.left, start.y);
+      left.push(buildPath(start.x, start.y, end.x, end.y, true));
+    });
+
+    const right: Conn[] = [];
+    rightRefs.current.forEach((li) => {
+      if (!li) return;
+      const r = li.getBoundingClientRect();
+      const start = toLocal(r.left, r.top + r.height / 2);
+      const end = toLocal(ceRect.right, start.y);
+      right.push(buildPath(start.x, start.y, end.x, end.y, false));
+    });
+
+    setConns({ left, right });
+  };
+
+  useEffect(() => {
+    measure();
+    const ro = new ResizeObserver(() => measure());
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener("resize", measure);
+    // re-measure after fonts/layout settle
+    const t = setTimeout(measure, 300);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+      clearTimeout(t);
+    };
+  }, []);
+
+  const allConns = [...conns.left, ...conns.right];
+
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
       <Reveal>
-        <div className="relative rounded-3xl bg-card border border-border p-6 md:p-12 overflow-hidden">
-          <div className="grid grid-cols-3 md:grid-cols-[1fr_auto_1fr] items-center gap-6 md:gap-10">
+        <div
+          ref={containerRef}
+          className="relative rounded-3xl bg-card border border-border p-6 md:p-12 overflow-hidden"
+        >
+          {/* Connection lines layer — sits behind all content */}
+          <svg
+            aria-hidden
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            style={{ zIndex: 0 }}
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="jg-grad-l" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="oklch(0.9 0.24 130)" stopOpacity="0.15" />
+                <stop offset="100%" stopColor="oklch(0.9 0.24 130)" stopOpacity="0.6" />
+              </linearGradient>
+              <linearGradient id="jg-grad-r" x1="1" y1="0" x2="0" y2="0">
+                <stop offset="0%" stopColor="oklch(0.9 0.24 130)" stopOpacity="0.15" />
+                <stop offset="100%" stopColor="oklch(0.9 0.24 130)" stopOpacity="0.6" />
+              </linearGradient>
+            </defs>
+            {conns.left.map((c, i) => (
+              <path
+                key={`l-${i}`}
+                d={c.d}
+                fill="none"
+                stroke="url(#jg-grad-l)"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+            ))}
+            {conns.right.map((c, i) => (
+              <path
+                key={`r-${i}`}
+                d={c.d}
+                fill="none"
+                stroke="url(#jg-grad-r)"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+            ))}
+          </svg>
+
+          {/* Traveling data lights — flowing from each pill toward the center hub */}
+          <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
+            {allConns.map((c, i) => (
+              <span
+                key={`dot-${i}`}
+                className="juggle-dot"
+                style={
+                  {
+                    offsetPath: `path('${c.d}')`,
+                    animationDelay: `${i * 0.7}s`,
+                  } as React.CSSProperties
+                }
+              />
+            ))}
+          </div>
+
+          <div
+            className="relative grid grid-cols-3 md:grid-cols-[1fr_auto_1fr] items-center gap-6 md:gap-10"
+            style={{ zIndex: 2 }}
+          >
             <ul className="flex flex-col gap-4 md:gap-6 items-start">
               {leftNodes.map((n, i) => (
                 <li
                   key={n}
+                  ref={(el) => {
+                    leftRefs.current[i] = el;
+                  }}
                   className="rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-xs md:text-sm font-mono hover:bg-lime hover:text-primary transition-colors"
                   style={{ animation: `float 6s ease-in-out ${i * 0.4}s infinite` }}
                 >
@@ -322,7 +461,10 @@ function Juggle() {
                 className="absolute inset-0 rounded-3xl bg-lime/40 blur-2xl"
                 style={{ animation: "glow-pulse 4s ease-in-out infinite" }}
               />
-              <div className="relative rounded-2xl bg-lime px-6 py-8 md:px-12 md:py-14 text-center shadow-lg">
+              <div
+                ref={centerRef}
+                className="relative rounded-2xl bg-lime px-6 py-8 md:px-12 md:py-14 text-center shadow-lg"
+              >
                 <h3 className="font-display font-bold text-2xl md:text-4xl">No Need to Juggle</h3>
                 <p className="mt-3 text-xs md:text-sm font-mono text-primary/80">
                   Control full suite with single chat window
@@ -333,6 +475,9 @@ function Juggle() {
               {rightNodes.map((n, i) => (
                 <li
                   key={n}
+                  ref={(el) => {
+                    rightRefs.current[i] = el;
+                  }}
                   className="rounded-full bg-primary text-primary-foreground px-4 py-1.5 text-xs md:text-sm font-mono hover:bg-lime hover:text-primary transition-colors"
                   style={{ animation: `float 6s ease-in-out ${i * 0.4 + 0.2}s infinite` }}
                 >
