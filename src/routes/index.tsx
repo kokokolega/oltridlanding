@@ -129,30 +129,20 @@ function ChatInput() {
   const [value, setValue] = useState("");
   return (
     <div className="relative isolate mx-auto w-full max-w-2xl">
-      {/* Animated ambient glow layers */}
+      {/* Tight animated bloom hugging the input */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-1 rounded-[28px] opacity-70"
+        className="pointer-events-none absolute -inset-px rounded-[26px] opacity-60"
         style={{
           background:
             "conic-gradient(from 0deg, oklch(0.9 0.24 130), oklch(0.85 0.22 150), oklch(0.9 0.24 130), oklch(0.8 0.2 110), oklch(0.9 0.24 130))",
-          filter: "blur(22px)",
-          animation: "glow-rotate 8s linear infinite, glow-pulse 3.5s ease-in-out infinite",
+          filter: "blur(8px)",
+          animation: "glow-rotate 10s linear infinite, glow-pulse 4s ease-in-out infinite",
           zIndex: -1,
-          willChange: "transform, opacity, filter",
+          willChange: "transform, opacity",
         }}
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-3 rounded-[32px] opacity-40"
-        style={{
-          background:
-            "radial-gradient(60% 60% at 50% 50%, oklch(0.9 0.24 130 / 0.7), transparent 70%)",
-          filter: "blur(32px)",
-          animation: "glow-pulse 4.5s ease-in-out infinite",
-          zIndex: -2,
-        }}
-      />
+
       <div className="relative rounded-3xl bg-card border border-border shadow-sm px-4 py-3">
         <input
           value={value}

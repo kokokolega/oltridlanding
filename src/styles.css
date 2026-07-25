@@ -73,17 +73,10 @@
 }
 
 @keyframes glow-pulse {
-  0%, 100% {
-    opacity: 0.55;
-    filter: blur(28px);
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.95;
-    filter: blur(40px);
-    transform: scale(1.04);
-  }
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.75; }
 }
+
 
 @keyframes glow-rotate {
   from { transform: rotate(0deg); }
