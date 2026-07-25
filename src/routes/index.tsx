@@ -15,6 +15,7 @@ import {
   Linkedin,
   Instagram,
   Youtube,
+  Zap,
 } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
 import avatar1 from "@/assets/avatar-1.jpg";
