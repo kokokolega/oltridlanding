@@ -15,6 +15,7 @@ import {
   Linkedin,
   Instagram,
   Youtube,
+  Zap,
 } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
 import avatar1 from "@/assets/avatar-1.jpg";
@@ -84,7 +85,7 @@ function Nav() {
         </nav>
         <div className="hidden md:block">
           <a
-            href="#signup"
+            href="https://oltrid.com/auth"
             className="inline-flex items-center rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 transition"
           >
             Login / Signup
@@ -112,7 +113,7 @@ function Nav() {
               </a>
             ))}
             <a
-              href="#signup"
+              href="https://oltrid.com/auth"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex justify-center rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium"
             >
@@ -127,54 +128,51 @@ function Nav() {
 
 function ChatInput() {
   const [value, setValue] = useState("");
+  const submit = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    window.location.href = "https://oltrid.com/auth";
+  };
   return (
-    <div className="relative isolate mx-auto w-full max-w-2xl">
-      {/* Tight animated bloom hugging the input */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-px rounded-[26px] opacity-60"
-        style={{
-          background:
-            "conic-gradient(from 0deg, oklch(0.9 0.24 130), oklch(0.85 0.22 150), oklch(0.9 0.24 130), oklch(0.8 0.2 110), oklch(0.9 0.24 130))",
-          filter: "blur(8px)",
-          animation: "glow-rotate 10s linear infinite, glow-pulse 4s ease-in-out infinite",
-          zIndex: -1,
-          willChange: "transform, opacity",
-        }}
-      />
-
-      <div className="relative rounded-3xl bg-card border border-border shadow-sm px-4 py-3">
-        <input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="How can i help you today?............"
-          className="w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-muted-foreground/70 py-2"
-          aria-label="Ask Oltrid AI"
-        />
-        <div className="flex items-center justify-between pt-2">
-          <div className="flex items-center gap-3 text-muted-foreground">
-            <button className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Add">
-              <Plus className="h-4 w-4" />
-            </button>
-            <button className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Emoji">
-              <Smile className="h-4 w-4" />
-            </button>
-            <button className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Image">
-              <ImageIcon className="h-4 w-4" />
-            </button>
-          </div>
-          <div className="flex items-center gap-3 text-muted-foreground text-xs font-mono">
-            <span className="inline-flex items-center gap-1"><FileText className="h-3.5 w-3.5" /> Default</span>
-            <span className="inline-flex items-center gap-1">⚡ General</span>
-            <button className="p-2 rounded-full bg-muted hover:bg-muted/70 transition" aria-label="Voice">
-              <Mic className="h-4 w-4" />
-            </button>
+    <form onSubmit={submit} className="relative mx-auto w-full max-w-2xl">
+      <div className="chat-border-glow">
+        <div className="relative rounded-[calc(1.5rem-1.5px)] bg-card shadow-sm px-4 py-3">
+          <input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="How can i help you today?............"
+            className="w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-muted-foreground/70 py-2"
+            aria-label="Ask Oltrid AI"
+          />
+          <div className="flex items-center justify-between pt-2">
+            <div className="flex items-center gap-3 text-muted-foreground">
+              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Attach">
+                <Plus className="h-4 w-4" />
+              </button>
+              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Emoji">
+                <Smile className="h-4 w-4" />
+              </button>
+              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Image">
+                <ImageIcon className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="flex items-center gap-3 text-muted-foreground text-xs font-mono">
+              <button type="button" onClick={submit} className="inline-flex items-center gap-1 hover:text-foreground transition" aria-label="Default mode">
+                <FileText className="h-3.5 w-3.5" /> Default
+              </button>
+              <button type="button" onClick={submit} className="inline-flex items-center gap-1 hover:text-foreground transition" aria-label="General mode">
+                <Zap className="h-3.5 w-3.5" /> General
+              </button>
+              <button type="submit" className="p-2 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition" aria-label="Send">
+                <Mic className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
+
 
 function Hero() {
   return (
