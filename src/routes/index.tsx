@@ -465,12 +465,12 @@ function Juggle() {
       <Reveal>
         <div
           ref={containerRef}
-          className="relative rounded-3xl bg-surface border border-border py-12 px-6 md:py-16 md:px-14 overflow-hidden"
+          className="relative rounded-3xl bg-surface border border-border py-10 px-4 sm:py-12 sm:px-6 md:py-16 md:px-14 overflow-hidden"
         >
-          {/* SVG: connection lines + endpoint dots, sits behind all content */}
+          {/* SVG: connection lines + endpoint dots — desktop only */}
           <svg
             aria-hidden
-            className="absolute inset-0 w-full h-full pointer-events-none"
+            className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
             style={{ zIndex: 0 }}
           >
             {conns.left.map((c, i) => (
@@ -489,8 +489,8 @@ function Juggle() {
             ))}
           </svg>
 
-          {/* Traveling light: each dot travels from pill → center card */}
-          <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
+          {/* Traveling light — desktop only */}
+          <div className="absolute inset-0 pointer-events-none hidden md:block" style={{ zIndex: 1 }}>
             {allConns.map((c, i) => (
               <span
                 key={`dot-${i}`}
@@ -500,25 +500,23 @@ function Juggle() {
             ))}
           </div>
 
-          {/* Grid layout — untouched positions */}
+          {/* Desktop layout: 3-col mind map */}
           <div
-            className="relative grid grid-cols-3 md:grid-cols-[1fr_auto_1fr] items-center gap-6 md:gap-10"
+            className="relative hidden md:grid md:grid-cols-[1fr_auto_1fr] items-center gap-10"
             style={{ zIndex: 2 }}
           >
-            {/* Left pills */}
-            <ul className="flex flex-col gap-4 md:gap-5 items-start">
+            <ul className="flex flex-col gap-5 items-start">
               {leftNodes.map((n, i) => (
                 <li
                   key={n}
                   ref={(el) => { leftRefs.current[i] = el; }}
-                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-xs md:text-sm font-mono whitespace-nowrap select-none"
+                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
                 >
                   {n}
                 </li>
               ))}
             </ul>
 
-            {/* Center card */}
             <div className="relative flex items-center justify-center">
               <div
                 aria-hidden
@@ -527,22 +525,48 @@ function Juggle() {
               />
               <div
                 ref={centerRef}
-                className="relative rounded-2xl bg-lime px-8 py-10 md:px-12 md:py-14 text-center shadow-lg min-w-[200px] md:min-w-[300px]"
+                className="relative rounded-2xl bg-lime px-12 py-14 text-center shadow-lg min-w-[300px]"
               >
-                <h3 className="font-display font-bold text-2xl md:text-4xl leading-tight">No Need to Juggle</h3>
-                <p className="mt-3 text-xs md:text-sm font-mono text-primary/75">
+                <h3 className="font-display font-bold text-4xl leading-tight">No Need to Juggle</h3>
+                <p className="mt-3 text-sm font-mono text-primary/75">
                   Control full suite with single chat window
                 </p>
               </div>
             </div>
 
-            {/* Right pills */}
-            <ul className="flex flex-col gap-4 md:gap-5 items-end">
+            <ul className="flex flex-col gap-5 items-end">
               {rightNodes.map((n, i) => (
                 <li
                   key={n}
                   ref={(el) => { rightRefs.current[i] = el; }}
-                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-xs md:text-sm font-mono whitespace-nowrap select-none"
+                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
+                >
+                  {n}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Mobile layout: center card on top, pills as chip cloud below */}
+          <div className="md:hidden relative flex flex-col items-center gap-8" style={{ zIndex: 2 }}>
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute inset-[-18px] rounded-3xl bg-lime/45 blur-2xl"
+                style={{ animation: "glow-pulse 4s ease-in-out infinite" }}
+              />
+              <div className="relative rounded-2xl bg-lime px-8 py-8 text-center shadow-lg">
+                <h3 className="font-display font-bold text-2xl leading-tight">No Need to Juggle</h3>
+                <p className="mt-2 text-xs font-mono text-primary/75">
+                  Control full suite with single chat window
+                </p>
+              </div>
+            </div>
+            <ul className="flex flex-wrap justify-center gap-2">
+              {[...leftNodes, ...rightNodes].map((n) => (
+                <li
+                  key={n}
+                  className="rounded-xl bg-primary text-primary-foreground px-3.5 py-1.5 text-xs font-mono whitespace-nowrap select-none"
                 >
                   {n}
                 </li>
