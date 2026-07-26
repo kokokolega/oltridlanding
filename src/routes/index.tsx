@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowUpRight,
   Mic,
@@ -11,7 +12,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Facebook,
   Linkedin,
   Instagram,
   Youtube,
@@ -21,6 +21,7 @@ import logo from "@/assets/logo.png.asset.json";
 import avatar1 from "@/assets/avatar-1.jpg";
 import avatar2 from "@/assets/avatar-2.jpg";
 import avatar3 from "@/assets/avatar-3.jpg";
+import { subscribeEmail } from "@/lib/subscribe.functions";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -464,12 +465,12 @@ function Juggle() {
       <Reveal>
         <div
           ref={containerRef}
-          className="relative rounded-3xl bg-surface border border-border py-12 px-6 md:py-16 md:px-14 overflow-hidden"
+          className="relative rounded-3xl bg-surface border border-border py-10 px-4 sm:py-12 sm:px-6 md:py-16 md:px-14 overflow-hidden"
         >
-          {/* SVG: connection lines + endpoint dots, sits behind all content */}
+          {/* SVG: connection lines + endpoint dots — desktop only */}
           <svg
             aria-hidden
-            className="absolute inset-0 w-full h-full pointer-events-none"
+            className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
             style={{ zIndex: 0 }}
           >
             {conns.left.map((c, i) => (
@@ -488,8 +489,8 @@ function Juggle() {
             ))}
           </svg>
 
-          {/* Traveling light: each dot travels from pill → center card */}
-          <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
+          {/* Traveling light — desktop only */}
+          <div className="absolute inset-0 pointer-events-none hidden md:block" style={{ zIndex: 1 }}>
             {allConns.map((c, i) => (
               <span
                 key={`dot-${i}`}
@@ -499,25 +500,23 @@ function Juggle() {
             ))}
           </div>
 
-          {/* Grid layout — untouched positions */}
+          {/* Desktop layout: 3-col mind map */}
           <div
-            className="relative grid grid-cols-3 md:grid-cols-[1fr_auto_1fr] items-center gap-6 md:gap-10"
+            className="relative hidden md:grid md:grid-cols-[1fr_auto_1fr] items-center gap-10"
             style={{ zIndex: 2 }}
           >
-            {/* Left pills */}
-            <ul className="flex flex-col gap-4 md:gap-5 items-start">
+            <ul className="flex flex-col gap-5 items-start">
               {leftNodes.map((n, i) => (
                 <li
                   key={n}
                   ref={(el) => { leftRefs.current[i] = el; }}
-                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-xs md:text-sm font-mono whitespace-nowrap select-none"
+                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
                 >
                   {n}
                 </li>
               ))}
             </ul>
 
-            {/* Center card */}
             <div className="relative flex items-center justify-center">
               <div
                 aria-hidden
@@ -526,22 +525,48 @@ function Juggle() {
               />
               <div
                 ref={centerRef}
-                className="relative rounded-2xl bg-lime px-8 py-10 md:px-12 md:py-14 text-center shadow-lg min-w-[200px] md:min-w-[300px]"
+                className="relative rounded-2xl bg-lime px-12 py-14 text-center shadow-lg min-w-[300px]"
               >
-                <h3 className="font-display font-bold text-2xl md:text-4xl leading-tight">No Need to Juggle</h3>
-                <p className="mt-3 text-xs md:text-sm font-mono text-primary/75">
+                <h3 className="font-display font-bold text-4xl leading-tight">No Need to Juggle</h3>
+                <p className="mt-3 text-sm font-mono text-primary/75">
                   Control full suite with single chat window
                 </p>
               </div>
             </div>
 
-            {/* Right pills */}
-            <ul className="flex flex-col gap-4 md:gap-5 items-end">
+            <ul className="flex flex-col gap-5 items-end">
               {rightNodes.map((n, i) => (
                 <li
                   key={n}
                   ref={(el) => { rightRefs.current[i] = el; }}
-                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-xs md:text-sm font-mono whitespace-nowrap select-none"
+                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
+                >
+                  {n}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Mobile layout: center card on top, pills as chip cloud below */}
+          <div className="md:hidden relative flex flex-col items-center gap-8" style={{ zIndex: 2 }}>
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute inset-[-18px] rounded-3xl bg-lime/45 blur-2xl"
+                style={{ animation: "glow-pulse 4s ease-in-out infinite" }}
+              />
+              <div className="relative rounded-2xl bg-lime px-8 py-8 text-center shadow-lg">
+                <h3 className="font-display font-bold text-2xl leading-tight">No Need to Juggle</h3>
+                <p className="mt-2 text-xs font-mono text-primary/75">
+                  Control full suite with single chat window
+                </p>
+              </div>
+            </div>
+            <ul className="flex flex-wrap justify-center gap-2">
+              {[...leftNodes, ...rightNodes].map((n) => (
+                <li
+                  key={n}
+                  className="rounded-xl bg-primary text-primary-foreground px-3.5 py-1.5 text-xs font-mono whitespace-nowrap select-none"
                 >
                   {n}
                 </li>
@@ -568,22 +593,51 @@ function Testimonials() {
   const next = () => setIdx((i) => (i + 1) % total);
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
-      <div className="flex items-start justify-between gap-6 mb-10">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 sm:gap-6 mb-8 md:mb-10">
         <Reveal>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">
+          <h2 className="font-display font-bold text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-tight">
             What Past Attendees Say
           </h2>
         </Reveal>
-        <div className="hidden md:flex items-center gap-3">
-          <button onClick={prev} className="h-12 w-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition" aria-label="Previous">
-            <ChevronLeft className="h-5 w-5" />
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <button onClick={prev} className="h-10 w-10 md:h-12 md:w-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition" aria-label="Previous">
+            <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
           </button>
-          <button onClick={next} className="h-12 w-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition" aria-label="Next">
-            <ChevronRight className="h-5 w-5" />
+          <button onClick={next} className="h-10 w-10 md:h-12 md:w-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition" aria-label="Next">
+            <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
           </button>
         </div>
       </div>
-      <div className="grid md:grid-cols-3 gap-5">
+
+      {/* Mobile: single-card carousel */}
+      <div className="md:hidden">
+        <article className="rounded-3xl p-6 min-h-[340px] flex flex-col justify-between bg-lime shadow-xl">
+          <h3 className="font-display font-bold text-xl tracking-tight text-primary max-w-[16ch]">
+            {testimonials[idx].title}
+          </h3>
+          <p className="text-sm text-primary/90 mt-6">"{testimonials[idx].quote}"</p>
+          <div className="mt-6 flex items-center gap-3">
+            <img src={testimonials[idx].avatar} alt={testimonials[idx].name} loading="lazy" className="h-11 w-11 rounded-full object-cover ring-2 ring-background" />
+            <div>
+              <div className="text-sm font-semibold text-primary">{testimonials[idx].name}</div>
+              <div className="text-xs text-primary/70">{testimonials[idx].role}</div>
+            </div>
+          </div>
+        </article>
+        <div className="mt-4 flex items-center justify-center gap-2">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              aria-label={`Go to testimonial ${i + 1}`}
+              className={`h-2 rounded-full transition-all ${i === idx ? "w-6 bg-primary" : "w-2 bg-primary/30"}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: 3-up */}
+      <div className="hidden md:grid md:grid-cols-3 gap-5">
         {testimonials.map((t, i) => {
           const active = i === idx;
           return (
@@ -609,23 +663,76 @@ function Testimonials() {
           );
         })}
       </div>
-      <div className="md:hidden flex items-center justify-center gap-3 mt-6">
-        <button onClick={prev} className="h-11 w-11 rounded-full border border-primary flex items-center justify-center" aria-label="Previous">
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button onClick={next} className="h-11 w-11 rounded-full border border-primary flex items-center justify-center" aria-label="Next">
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      </div>
     </section>
   );
 }
+
+function NewsletterForm() {
+  const subscribe = useServerFn(subscribeEmail);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
+  const [message, setMessage] = useState<string>("");
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setMessage("");
+    try {
+      await subscribe({ data: { email } });
+      setStatus("ok");
+      setMessage("You're on the list. Talk soon.");
+      setEmail("");
+    } catch (err) {
+      setStatus("error");
+      setMessage(err instanceof Error ? err.message : "Something went wrong");
+    }
+  };
+
+  return (
+    <form onSubmit={onSubmit} className="mt-8">
+      <label htmlFor="newsletter-email" className="text-xs text-primary/80">Email</label>
+      <input
+        id="newsletter-email"
+        type="email"
+        required
+        maxLength={255}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="you@example.com"
+        className="mt-1 w-full bg-transparent border-b border-primary/60 focus:border-primary outline-none py-2 text-sm placeholder:text-primary/40"
+      />
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="mt-6 inline-flex items-center rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:opacity-90 transition disabled:opacity-60"
+      >
+        {status === "loading" ? "Saving…" : "Stay updated"}
+      </button>
+      {message && (
+        <p className={`mt-3 text-xs ${status === "ok" ? "text-primary" : "text-destructive"}`}>
+          {message}
+        </p>
+      )}
+    </form>
+  );
+}
+
+const footerLinks: { label: string; to: string; muted?: boolean }[] = [
+  { label: "Agenda", to: "/agenda" },
+  { label: "Terms & Conditions", to: "/terms", muted: true },
+  { label: "Speakers", to: "/speakers" },
+  { label: "Privacy Policy", to: "/privacy", muted: true },
+  { label: "Register", to: "/register" },
+  { label: "Cookie Policy", to: "/cookies", muted: true },
+  { label: "Venue", to: "/venue" },
+  { label: "FAQ", to: "/faq" },
+];
 
 function Footer() {
   return (
     <footer id="contact" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-10">
       <div className="grid md:grid-cols-2 gap-5">
-        <div className="rounded-3xl bg-surface p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
+        <div className="rounded-3xl bg-surface p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
           <div>
             <div className="flex items-center gap-2">
               <img src={logo.url} alt="Oltrid AI" className="h-7 w-auto" />
@@ -633,45 +740,30 @@ function Footer() {
             <p className="mt-4 text-sm">Your AI workspace for everything.</p>
           </div>
           <div className="mt-8 grid grid-cols-2 gap-y-2 text-sm">
-            <a href="#" className="hover:text-lime transition">Agenda</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition">Terms & Conditions</a>
-            <a href="#" className="hover:text-lime transition">Speakers</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition">Privacy Policy</a>
-            <a href="#" className="hover:text-lime transition">Register</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition">Cookie Policy</a>
-            <a href="#" className="hover:text-lime transition">Venue</a>
-            <span />
-            <a href="#" className="hover:text-lime transition">FAQ</a>
+            {footerLinks.map((l) => (
+              <Link
+                key={l.label}
+                to={l.to}
+                className={l.muted ? "text-muted-foreground hover:text-foreground transition" : "hover:text-lime transition"}
+              >
+                {l.label}
+              </Link>
+            ))}
           </div>
           <p className="mt-8 text-xs text-muted-foreground">© 2026 Oltrid AI. Future of AI Powered Productivity.</p>
         </div>
-        <div id="signup" className="rounded-3xl bg-lime p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
+        <div id="signup" className="rounded-3xl bg-lime p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
           <div>
             <h3 className="font-display font-bold text-2xl md:text-3xl">STAY UPDATED</h3>
             <p className="mt-2 text-sm text-primary/80">Subscribe for event updates & exclusive content.</p>
-            <form onSubmit={(e) => e.preventDefault()} className="mt-8">
-              <label className="text-xs text-primary/80">Email</label>
-              <input
-                type="email"
-                required
-                placeholder="you@example.com"
-                className="mt-1 w-full bg-transparent border-b border-primary/60 focus:border-primary outline-none py-2 text-sm placeholder:text-primary/40"
-              />
-              <button
-                type="submit"
-                className="mt-6 inline-flex items-center rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:opacity-90 transition"
-              >
-                Stay updated
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
           <div className="mt-8">
             <h4 className="font-display font-bold text-sm tracking-wide">FOLLOW US</h4>
             <div className="mt-3 flex items-center gap-3 text-primary">
-              <a href="#" aria-label="Facebook" className="hover:opacity-70 transition"><Facebook className="h-5 w-5" /></a>
-              <a href="#" aria-label="LinkedIn" className="hover:opacity-70 transition"><Linkedin className="h-5 w-5" /></a>
-              <a href="#" aria-label="Instagram" className="hover:opacity-70 transition"><Instagram className="h-5 w-5" /></a>
-              <a href="#" aria-label="YouTube" className="hover:opacity-70 transition"><Youtube className="h-5 w-5" /></a>
+              <a href="https://www.linkedin.com/company/oltrid/?viewAsMember=true" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:opacity-70 transition"><Linkedin className="h-5 w-5" /></a>
+              <a href="https://www.instagram.com/oltridai" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:opacity-70 transition"><Instagram className="h-5 w-5" /></a>
+              <a href="https://youtube.com/@oltrid" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="hover:opacity-70 transition"><Youtube className="h-5 w-5" /></a>
             </div>
           </div>
         </div>
