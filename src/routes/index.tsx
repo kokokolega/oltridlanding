@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import {
   ArrowUpRight,
   Mic,
@@ -11,7 +12,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Facebook,
   Linkedin,
   Instagram,
   Youtube,
@@ -21,6 +21,7 @@ import logo from "@/assets/logo.png.asset.json";
 import avatar1 from "@/assets/avatar-1.jpg";
 import avatar2 from "@/assets/avatar-2.jpg";
 import avatar3 from "@/assets/avatar-3.jpg";
+import { subscribeEmail } from "@/lib/subscribe.functions";
 
 export const Route = createFileRoute("/")({
   component: Landing,
