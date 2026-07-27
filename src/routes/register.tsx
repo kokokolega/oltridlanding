@@ -32,7 +32,7 @@ function Register() {
             <ul className="mt-4 space-y-1 text-sm text-muted-foreground flex-1">
               {t.perks.map((p) => <li key={p}>• {p}</li>)}
             </ul>
-            <a href="https://oltrid.com/auth" className="mt-6 inline-flex justify-center rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm font-medium">
+            <a href="https://app.oltrid.com/auth" className="mt-6 inline-flex justify-center rounded-full bg-primary text-primary-foreground px-4 py-2.5 text-sm font-medium">
               Get ticket
             </a>
           </div>
