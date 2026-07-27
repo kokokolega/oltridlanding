@@ -22,6 +22,7 @@ import avatar1 from "@/assets/avatar-1.jpg";
 import avatar2 from "@/assets/avatar-2.jpg";
 import avatar3 from "@/assets/avatar-3.jpg";
 import { subscribeEmail } from "@/lib/subscribe.functions";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -677,19 +678,29 @@ function NewsletterForm() {
     e.preventDefault();
     setStatus("loading");
     setMessage("");
+    const submitted = email;
+    const loadingId = toast.loading("Adding you to the list…");
     try {
-      await subscribe({ data: { email } });
+      await subscribe({ data: { email: submitted } });
       setStatus("ok");
-      setMessage("You're on the list. Talk soon.");
+      setMessage(`✓ ${submitted} added to the list.`);
       setEmail("");
+      toast.success("You're subscribed!", {
+        id: loadingId,
+        description: `${submitted} was saved to our list.`,
+      });
     } catch (err) {
+      const msg = err instanceof Error ? err.message : "Something went wrong";
       setStatus("error");
-      setMessage(err instanceof Error ? err.message : "Something went wrong");
+      setMessage(msg);
+      toast.error("Subscription failed", { id: loadingId, description: msg });
     }
   };
 
+  const loading = status === "loading";
+
   return (
-    <form onSubmit={onSubmit} className="mt-8">
+    <form onSubmit={onSubmit} className="mt-8" aria-busy={loading}>
       <label htmlFor="newsletter-email" className="text-xs text-primary/80">Email</label>
       <input
         id="newsletter-email"
@@ -699,20 +710,31 @@ function NewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@example.com"
-        className="mt-1 w-full bg-transparent border-b border-primary/60 focus:border-primary outline-none py-2 text-sm placeholder:text-primary/40"
+        disabled={loading}
+        className="mt-1 w-full bg-transparent border-b border-primary/60 focus:border-primary outline-none py-2 text-sm placeholder:text-primary/40 disabled:opacity-60"
       />
       <button
         type="submit"
-        disabled={status === "loading"}
-        className="mt-6 inline-flex items-center rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:opacity-90 transition disabled:opacity-60"
+        disabled={loading}
+        className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:opacity-90 transition disabled:opacity-60"
       >
-        {status === "loading" ? "Saving…" : "Stay updated"}
+        {loading && (
+          <span
+            aria-hidden
+            className="h-3.5 w-3.5 rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin"
+          />
+        )}
+        {loading ? "Saving…" : "Stay updated"}
       </button>
-      {message && (
-        <p className={`mt-3 text-xs ${status === "ok" ? "text-primary" : "text-destructive"}`}>
-          {message}
-        </p>
-      )}
+      <p
+        role="status"
+        aria-live="polite"
+        className={`mt-3 text-xs min-h-4 ${
+          status === "ok" ? "text-primary" : status === "error" ? "text-destructive" : "text-primary/60"
+        }`}
+      >
+        {message}
+      </p>
     </form>
   );
 }
