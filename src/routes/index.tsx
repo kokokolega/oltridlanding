@@ -87,7 +87,7 @@ function Nav() {
         </nav>
         <div className="hidden md:block">
           <a
-            href="https://oltrid.com/auth"
+            href="https://app.oltrid.com/auth"
             className="inline-flex items-center rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 transition"
           >
             Login / Signup
@@ -115,7 +115,7 @@ function Nav() {
               </a>
             ))}
             <a
-              href="https://oltrid.com/auth"
+              href="https://app.oltrid.com/auth"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex justify-center rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium"
             >
@@ -209,7 +209,7 @@ function ChatInput() {
   const animated = useTypingPlaceholder(!focused && value.length === 0);
   const submit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    window.location.href = "https://oltrid.com/auth";
+    window.location.href = "https://app.oltrid.com/auth";
   };
   return (
     <form onSubmit={submit} className="relative mx-auto w-full max-w-2xl">
