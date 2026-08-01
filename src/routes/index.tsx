@@ -857,15 +857,34 @@ function NewsletterForm() {
   );
 }
 
-const footerLinks: { label: string; to: string; muted?: boolean }[] = [
-  { label: "Agenda", to: "/agenda" },
-  { label: "Terms & Conditions", to: "/terms", muted: true },
-  { label: "Speakers", to: "/speakers" },
-  { label: "Privacy Policy", to: "/privacy", muted: true },
-  { label: "Register", to: "/register" },
-  { label: "Cookie Policy", to: "/cookies", muted: true },
-  { label: "Venue", to: "/venue" },
-  { label: "FAQ", to: "/faq" },
+const footerGroups: { heading: string; links: { label: string; to: string; hash?: boolean }[] }[] = [
+  {
+    heading: "Product",
+    links: [
+      { label: "Features", to: "#product", hash: true },
+      { label: "Demo", to: "#demo", hash: true },
+      { label: "Pricing", to: "/pricing" },
+      { label: "Register", to: "/register" },
+    ],
+  },
+  {
+    heading: "Resources",
+    links: [
+      { label: "Blog", to: "/blog" },
+      { label: "Documentation", to: "/docs" },
+      { label: "Community", to: "/community" },
+      { label: "FAQ", to: "/faq" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "Contact", to: "/contact" },
+      { label: "Privacy", to: "/privacy" },
+      { label: "Terms", to: "/terms" },
+      { label: "Cookie Policy", to: "/cookies" },
+    ],
+  },
 ];
 
 function Footer() {
@@ -879,19 +898,29 @@ function Footer() {
             </div>
             <p className="mt-4 text-sm">Your AI workspace for everything.</p>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-y-2 text-sm">
-            {footerLinks.map((l) => (
-              <Link
-                key={l.label}
-                to={l.to}
-                className={l.muted ? "text-muted-foreground hover:text-foreground transition" : "hover:text-lime transition"}
-              >
-                {l.label}
-              </Link>
+          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6 text-sm">
+            {footerGroups.map((g) => (
+              <div key={g.heading}>
+                <h4 className="font-display font-bold text-xs tracking-wide uppercase text-muted-foreground">
+                  {g.heading}
+                </h4>
+                <ul className="mt-3 space-y-2">
+                  {g.links.map((l) => (
+                    <li key={l.label}>
+                      {l.hash ? (
+                        <a href={l.to} className="hover:text-lime transition">{l.label}</a>
+                      ) : (
+                        <Link to={l.to} className="hover:text-lime transition">{l.label}</Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
           <p className="mt-8 text-xs text-muted-foreground">© 2026 Oltrid AI. Future of AI Powered Productivity.</p>
         </div>
+
         <div id="signup" className="rounded-3xl bg-lime p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
           <div>
             <h3 className="font-display font-bold text-2xl md:text-3xl">STAY UPDATED</h3>
