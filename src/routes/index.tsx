@@ -626,7 +626,7 @@ function Juggle() {
             <ul className="flex flex-col gap-5 items-start">
               {leftNodes.map((n, i) => (
                 <li
-                  key={n}
+                  key={`${n}-${i}`}
                   ref={(el) => { leftRefs.current[i] = el; }}
                   className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
                 >
@@ -655,7 +655,7 @@ function Juggle() {
             <ul className="flex flex-col gap-5 items-end">
               {rightNodes.map((n, i) => (
                 <li
-                  key={n}
+                  key={`${n}-${i}`}
                   ref={(el) => { rightRefs.current[i] = el; }}
                   className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
                 >
@@ -683,7 +683,7 @@ function Juggle() {
             <ul className="flex flex-wrap justify-center gap-2">
               {[...leftNodes, ...rightNodes].map((n) => (
                 <li
-                  key={n}
+                  key={`${n}-${i}`}
                   className="rounded-xl bg-primary text-primary-foreground px-3.5 py-1.5 text-xs font-mono whitespace-nowrap select-none"
                 >
                   {n}
