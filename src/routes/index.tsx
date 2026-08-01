@@ -312,37 +312,35 @@ function Hero() {
 }
 
 const whyItems = [
-  { n: "01", title: "CUTTING-EDGE INSIGHTS", desc: "Gain firsthand knowledge from top AI experts and pioneers shaping the industry." },
-  { n: "02", title: "HANDS-ON LEARNING", desc: "Participate in interactive workshops, live demos, and deep-dive sessions to sharpen your skills." },
-  { n: "03", title: "EXCLUSIVE NETWORKING", desc: "Connect with AI leaders, investors, startups, and fellow professionals at curated networking events." },
-  { n: "04", title: "INNOVATION SHOWCASE", desc: "Explore groundbreaking AI solutions, from emerging startups to tech giants redefining the future." },
+  { n: "01", title: "NEVER LOSE CONTEXT", desc: "Pick up any project exactly where you left it — Oltrid carries the full history with you." },
+  { n: "02", title: "ONE AI THAT REMEMBERS EVERYTHING", desc: "Your decisions, files and preferences stay in memory, so you never repeat yourself again." },
+  { n: "03", title: "STOP SWITCHING BETWEEN APPS", desc: "Docs, decks, sheets, sites and automations all live inside one chat window." },
+  { n: "04", title: "COMPLETE WORK FASTER", desc: "Go from idea to finished deliverable in a single conversation, not a dozen tabs." },
 ];
 
 function Why() {
   return (
-    <section id="features" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+    <section id="product" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 scroll-mt-20">
       <div className="rounded-[2rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
         <div className="grid md:grid-cols-3 gap-8 items-start">
           <Reveal>
-            <h2 className="md:col-span-2 font-display font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none">
-              WHY OLTRID?
+            <h2 className="md:col-span-2 font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none">
+              WHY PEOPLE CHOOSE OLTRID
             </h2>
           </Reveal>
           <Reveal delay={120}>
             <p className="text-sm text-muted-foreground max-w-xs md:mt-4">
-              Discover why Next-Gen AI Summit is the must-attend event for AI professionals, innovators, and industry leaders.
+              Not another chatbot. A workspace with memory that actually finishes the work with you.
             </p>
           </Reveal>
         </div>
         <div className="mt-10 grid sm:grid-cols-2 gap-5">
           {whyItems.map((it, i) => (
             <Reveal key={it.n} delay={i * 100}>
-              <div className="group relative overflow-hidden rounded-2xl bg-card p-6 sm:p-8 h-56 transition-all hover:-translate-y-1 hover:shadow-xl">
-                <div className="flex items-start justify-between">
-                  <h3 className="font-semibold tracking-wide text-sm sm:text-base">{it.title}</h3>
-                </div>
-                <p className="mt-4 text-sm text-muted-foreground max-w-[16rem]">{it.desc}</p>
-                <span className="pointer-events-none absolute -bottom-6 -right-2 font-display font-bold text-[9rem] leading-none text-muted-foreground/15 select-none group-hover:text-lime/40 transition-colors">
+              <div className="group relative overflow-hidden rounded-2xl bg-card p-6 sm:p-8 min-h-[14rem] transition-all hover:-translate-y-1 hover:shadow-xl">
+                <h3 className="font-semibold tracking-wide text-sm sm:text-base max-w-[18ch]">{it.title}</h3>
+                <p className="mt-4 text-sm text-muted-foreground max-w-[18rem]">{it.desc}</p>
+                <span className="pointer-events-none absolute -bottom-6 -right-2 font-display font-bold text-[7rem] sm:text-[9rem] leading-none text-muted-foreground/15 select-none group-hover:text-lime/40 transition-colors">
                   {it.n}
                 </span>
               </div>
@@ -354,45 +352,148 @@ function Why() {
   );
 }
 
+const suiteItems = [
+  { label: "Chat", Icon: MessageSquare },
+  { label: "Documents", Icon: FileText },
+  { label: "Presentations", Icon: Presentation },
+  { label: "Mind Maps", Icon: Network },
+  { label: "Websites", Icon: Globe },
+  { label: "Workflows", Icon: Workflow },
+  { label: "Canvas", Icon: PenTool },
+  { label: "Spreadsheets", Icon: Table2 },
+];
+
 function Suite() {
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-      <div className="grid md:grid-cols-2 gap-5">
-        <Reveal>
-          <div className="rounded-3xl bg-surface ring-2 ring-lime p-8 md:p-10 h-full min-h-[420px] flex flex-col">
-            <h3 className="font-display font-bold text-3xl md:text-4xl">Ai Powered Suite</h3>
-            <div className="mt-8 flex items-start gap-6">
-              <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-card">
-                <ArrowUpRight className="h-4 w-4" />
+      <Reveal>
+        <div className="text-center max-w-2xl mx-auto">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight">
+            One chat. Everything you can create.
+          </h2>
+          <p className="mt-3 text-sm md:text-base text-muted-foreground">
+            Ask once — Oltrid builds it, remembers it, and keeps improving it.
+          </p>
+        </div>
+      </Reveal>
+      <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+        {suiteItems.map((it, i) => (
+          <Reveal key={it.label} delay={i * 60}>
+            <div className="group h-full rounded-2xl border border-border bg-card p-5 sm:p-6 flex flex-col items-start gap-3 transition-all hover:-translate-y-1 hover:border-lime hover:shadow-lg">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface group-hover:bg-lime transition-colors">
+                <it.Icon className="h-5 w-5" />
               </span>
-              <p className="text-sm text-muted-foreground max-w-xs">
-                Hear from global AI leaders, researchers, and entrepreneurs who are defining the future of artificial intelligence.
-              </p>
+              <span className="font-display font-semibold text-sm sm:text-base">{it.label}</span>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const memorySteps = [
+  { day: "Monday", action: "Create roadmap", detail: "You outline the Q3 plan in chat." },
+  { day: "Wednesday", action: "Continue roadmap", detail: "No re-explaining. Oltrid picks up the thread." },
+  { day: "Friday", action: "Generate presentation", detail: "Built from everything discussed all week." },
+];
+
+function Memory() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="rounded-[2rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
+        <Reveal>
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight max-w-3xl">
+            Memory-centric actions
+          </h2>
+          <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl">
+            Oltrid already remembers everything — automatically.
+          </p>
+        </Reveal>
+        <ol className="mt-10 grid md:grid-cols-3 gap-4 md:gap-5 relative">
+          {memorySteps.map((s, i) => (
+            <Reveal key={s.day} delay={i * 140}>
+              <li className="relative h-full rounded-2xl bg-card p-6 border border-border">
+                <span className="text-xs font-mono text-muted-foreground">{s.day}</span>
+                <div className="mt-2 flex items-center gap-2">
+                  <ArrowUpRight className="h-4 w-4 text-lime" />
+                  <h3 className="font-display font-bold text-lg sm:text-xl">{s.action}</h3>
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground">{s.detail}</p>
+                <span className="mt-5 block h-1 rounded-full bg-lime/70" style={{ width: `${(i + 1) * 33}%` }} />
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+const oldStack = ["ChatGPT", "Google Docs", "Canva", "Notion", "Drive", "Zapier"];
+
+function BeforeAfter() {
+  const [active, setActive] = useState(0);
+  const { ref, shown } = useReveal();
+
+  useEffect(() => {
+    if (!shown) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % (oldStack.length + 1)), 900);
+    return () => clearInterval(id);
+  }, [shown]);
+
+  const collapsed = active === oldStack.length;
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+      <div ref={ref} className="rounded-[2rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14">
+        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-center">
+          Six tools before. One after.
+        </h2>
+        <div className="mt-10 grid md:grid-cols-[1fr_auto_1fr] items-center gap-8">
+          <div>
+            <p className="text-xs font-mono text-muted-foreground mb-3">BEFORE</p>
+            <ul className="flex flex-col gap-2">
+              {oldStack.map((t, i) => (
+                <li
+                  key={t}
+                  className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm transition-all duration-500"
+                  style={{
+                    opacity: collapsed ? 0.25 : i <= active ? 1 : 0.35,
+                    transform: collapsed
+                      ? "translateX(12px) scale(.97)"
+                      : i === active
+                        ? "translateX(8px)"
+                        : "translateX(0)",
+                  }}
+                >
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex md:flex-col items-center justify-center text-muted-foreground">
+            <ArrowRight className="h-6 w-6 hidden md:block" />
+            <ArrowDown className="h-6 w-6 md:hidden" />
+          </div>
+          <div>
+            <p className="text-xs font-mono text-muted-foreground mb-3">AFTER</p>
+            <div
+              className="rounded-2xl bg-lime p-8 text-center transition-all duration-700"
+              style={{ transform: collapsed ? "scale(1.03)" : "scale(1)", boxShadow: collapsed ? "0 18px 50px -18px oklch(0.9 0.24 130)" : "none" }}
+            >
+              <img src={logo.url} alt="Oltrid AI" className="h-8 w-auto mx-auto" />
+              <p className="mt-4 font-display font-bold text-xl text-primary">One place.</p>
+              <p className="font-display font-bold text-xl text-primary">One memory.</p>
+              <p className="font-display font-bold text-xl text-primary">One workflow.</p>
             </div>
           </div>
-        </Reveal>
-        <div className="flex flex-col gap-5">
-          <Reveal delay={100}>
-            <div className="rounded-3xl bg-lime p-8 md:p-10">
-              <h3 className="font-display font-bold text-2xl md:text-3xl">Memory Centric Actions</h3>
-              <p className="mt-4 text-sm text-primary/80 max-w-md">
-                Explore advanced machine learning, natural language processing, AI-driven automation, and emerging cybersecurity applications.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={200}>
-            <div className="rounded-3xl border border-border bg-card p-8 md:p-10">
-              <h3 className="font-display font-bold text-2xl md:text-3xl">Perfect Personal Assistant</h3>
-              <p className="mt-4 text-sm text-muted-foreground max-w-md">
-                Enjoy exclusive networking sessions, roundtables, and social events to foster collaboration and spark new partnerships.
-              </p>
-            </div>
-          </Reveal>
         </div>
       </div>
     </section>
   );
 }
+
 
 const leftNodes = ["Documents", "Mind Maps", "Presentations", "Sheets", "AI Agents"];
 const rightNodes = ["To Do List", "Reminders", "Dashboards", "AI Agents"];
