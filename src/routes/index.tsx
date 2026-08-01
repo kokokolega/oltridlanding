@@ -681,9 +681,10 @@ function Juggle() {
               </div>
             </div>
             <ul className="flex flex-wrap justify-center gap-2">
-              {[...leftNodes, ...rightNodes].map((n) => (
+              {[...leftNodes, ...rightNodes].map((n, i) => (
                 <li
                   key={`${n}-${i}`}
+
                   className="rounded-xl bg-primary text-primary-foreground px-3.5 py-1.5 text-xs font-mono whitespace-nowrap select-none"
                 >
                   {n}
