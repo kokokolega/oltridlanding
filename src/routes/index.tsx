@@ -63,11 +63,12 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 function Nav() {
   const [open, setOpen] = useState(false);
   const links = [
-    { label: "Home", href: "#home" },
-    { label: "Features", href: "#features" },
-    { label: "Contact", href: "#contact" },
-    { label: "About Us", href: "#about" },
+    { label: "Product", href: "#product" },
+    { label: "Demo", href: "#demo" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Blog", href: "/blog" },
   ];
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -129,14 +130,14 @@ function Nav() {
 }
 
 const aiPrompts = [
-  "How can I help you today?",
-  "Summarize my last meeting notes...",
-  "Draft a follow-up email to the client...",
-  "Generate a project roadmap for Q3...",
-  "Build a dashboard from this spreadsheet...",
-  "Turn these bullets into a presentation...",
-  "What's on my agenda this week?",
+  "Plan my startup",
+  "Create a PRD",
+  "Generate a presentation",
+  "Remember this forever",
+  "Build a workflow",
+  "Create a website",
 ];
+
 
 function useTypingPlaceholder(active: boolean) {
   const [text, setText] = useState("");
@@ -271,35 +272,40 @@ function Hero() {
     <section id="home" className="relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-20 md:pb-28 text-center">
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full bg-lime/90 text-primary px-4 py-1.5 text-xs font-mono">
+          <a
+            href="https://app.oltrid.com/auth"
+            className="inline-flex items-center gap-2 rounded-full bg-lime/90 text-primary px-4 py-1.5 text-xs font-mono hover:opacity-90 transition"
+          >
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            Alpha is live now
-          </span>
+            Join Early Access
+          </a>
         </Reveal>
         <Reveal delay={120}>
           <h1 className="mt-6 font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-foreground max-w-4xl mx-auto">
-            The Future of AI-Powered{" "}
+            Your AI That{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 px-2">Productivity</span>
+              <span className="relative z-10 px-2">Remembers</span>
               <span
                 aria-hidden
                 className="absolute inset-0 -skew-y-1 bg-lime rounded-md"
                 style={{ animation: "glow-pulse 4s ease-in-out infinite" }}
               />
             </span>{" "}
-            is Here.
+            Everything and Gets Work Done.
           </h1>
         </Reveal>
         <Reveal delay={240}>
-          <p className="mt-6 text-sm md:text-base font-mono text-muted-foreground">
-            Seamlessly automate your workflows with Oltrid AI.
+          <p className="mt-6 text-sm md:text-base font-mono text-muted-foreground max-w-2xl mx-auto">
+            From idea to execution—chat, documents, files, automation, and memory in one place.
           </p>
         </Reveal>
+
         <Reveal delay={360}>
-          <div className="mt-10">
+          <div id="demo" className="mt-10 scroll-mt-24">
             <ChatInput />
           </div>
         </Reveal>
+
       </div>
     </section>
   );
