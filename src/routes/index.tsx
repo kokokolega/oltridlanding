@@ -506,7 +506,7 @@ function BeforeAfter() {
 
 
 const leftNodes = ["Documents", "Mind Maps", "Presentations", "Sheets", "AI Agents"];
-const rightNodes = ["To Do List", "Reminders", "Dashboards", "AI Agents"];
+const rightNodes = ["To Do List", "Reminders", "Dashboards", "Automations"];
 
 type Conn = { d: string; sx: number; sy: number; ex: number; ey: number };
 
