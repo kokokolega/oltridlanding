@@ -699,10 +699,11 @@ function Juggle() {
 
 type T = { title: string; quote: string; name: string; role: string; avatar: string };
 const testimonials: T[] = [
-  { title: "GAME-CHANGING INSIGHTS", quote: "This summit opened my eyes to the future of AI and how it will shape industries.", name: "Mark Vandenberg", role: "CTO, NeuralTech", avatar: avatar1 },
-  { title: "THE BEST AI EVENT!", quote: "Incredible speakers, top-tier networking, and cutting-edge discussions all in one place.", name: "Elena Rojas", role: "AI Researcher, DeepMind", avatar: avatar2 },
-  { title: "UNMATCHED OPPORTUNITIES", quote: "From hands-on workshops to visionary talks, this summit is a must-attend for AI professionals.", name: "David Laurent", role: "CEO, FutureAI Labs", avatar: avatar3 },
+  { title: "IT REMEMBERS MY WHOLE PROJECT", quote: "Came back after a week and it still knew every decision we made. I stopped re-explaining context entirely.", name: "Mark V.", role: "Beta user · Discord", avatar: avatar1 },
+  { title: "REPLACED FOUR TABS", quote: "Docs, deck and the workflow all came out of one chat. My old stack is basically sitting unused now.", name: "Elena R.", role: "Beta user · X/Twitter", avatar: avatar2 },
+  { title: "IDEA TO DECK IN ONE GO", quote: "I described the launch on Monday and asked for the presentation on Friday. It just built it from memory.", name: "David L.", role: "Early access · Product feedback", avatar: avatar3 },
 ];
+
 
 function Testimonials() {
   const [idx, setIdx] = useState(1);
@@ -714,7 +715,7 @@ function Testimonials() {
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 sm:gap-6 mb-8 md:mb-10">
         <Reveal>
           <h2 className="font-display font-bold text-2xl sm:text-3xl md:text-5xl lg:text-6xl tracking-tight">
-            What Past Attendees Say
+            What Early Users Say
           </h2>
         </Reveal>
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
