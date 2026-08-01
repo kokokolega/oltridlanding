@@ -949,8 +949,11 @@ function Landing() {
         <Hero />
         <Why />
         <Suite />
+        <Memory />
         <Juggle />
+        <BeforeAfter />
         <Testimonials />
+
       </main>
       <Footer />
     </div>
