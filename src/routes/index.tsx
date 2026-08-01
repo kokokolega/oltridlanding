@@ -16,6 +16,16 @@ import {
   Instagram,
   Youtube,
   Zap,
+  MessageSquare,
+  Presentation,
+  Network,
+  Globe,
+  Workflow,
+  PenTool,
+  Table2,
+  ArrowRight,
+  ArrowDown,
+
 } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
 import avatar1 from "@/assets/avatar-1.jpg";
