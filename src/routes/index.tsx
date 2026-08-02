@@ -328,31 +328,54 @@ const whyItems = [
   { n: "04", title: "COMPLETE WORK FASTER", desc: "Go from idea to finished deliverable in a single conversation, not a dozen tabs." },
 ];
 
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
+      <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+      {children}
+    </span>
+  );
+}
+
 function Why() {
   return (
-    <section id="product" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 scroll-mt-20">
-      <div className="rounded-[2rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
-        <div className="grid md:grid-cols-3 gap-8 items-start">
+    <section id="product" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 scroll-mt-20">
+      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full bg-lime/25 blur-3xl"
+        />
+        <div className="relative grid gap-6 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <Reveal>
-            <h2 className="md:col-span-2 font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none">
-              WHY PEOPLE CHOOSE OLTRID
-            </h2>
+            <div className="min-w-0">
+              <Eyebrow>Why Oltrid</Eyebrow>
+              <h2 className="mt-4 font-display font-bold text-[2rem] leading-[0.95] sm:text-5xl md:text-6xl tracking-tight">
+                Why people
+                <br className="hidden sm:block" /> choose Oltrid
+              </h2>
+            </div>
           </Reveal>
           <Reveal delay={120}>
-            <p className="text-sm text-muted-foreground max-w-xs md:mt-4">
+            <p className="text-sm md:text-base text-muted-foreground md:max-w-sm md:ml-auto md:text-right">
               Not another chatbot. A workspace with memory that actually finishes the work with you.
             </p>
           </Reveal>
         </div>
-        <div className="mt-10 grid sm:grid-cols-2 gap-5">
+
+        <div className="relative mt-10 md:mt-14 grid gap-4 sm:gap-5 sm:grid-cols-2">
           {whyItems.map((it, i) => (
-            <Reveal key={it.n} delay={i * 100}>
-              <div className="group relative overflow-hidden rounded-2xl bg-card p-6 sm:p-8 min-h-[14rem] transition-all hover:-translate-y-1 hover:shadow-xl">
-                <h3 className="font-semibold tracking-wide text-sm sm:text-base max-w-[18ch]">{it.title}</h3>
-                <p className="mt-4 text-sm text-muted-foreground max-w-[18rem]">{it.desc}</p>
-                <span className="pointer-events-none absolute -bottom-6 -right-2 font-display font-bold text-[7rem] sm:text-[9rem] leading-none text-muted-foreground/15 select-none group-hover:text-lime/40 transition-colors">
-                  {it.n}
-                </span>
+            <Reveal key={it.n} delay={i * 90}>
+              <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-lime hover:shadow-[0_24px_60px_-30px_oklch(0.9_0.24_130)]">
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-0.5 w-0 bg-lime transition-all duration-500 group-hover:w-full"
+                />
+                <span className="font-mono text-xs text-muted-foreground">{it.n}</span>
+                <h3 className="mt-4 font-display font-bold uppercase tracking-tight text-lg sm:text-xl leading-tight max-w-[20ch]">
+                  {it.title}
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground max-w-[34ch]">{it.desc}</p>
+                <ArrowUpRight className="mt-6 h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:text-lime group-hover:translate-x-1 group-hover:-translate-y-1" />
               </div>
             </Reveal>
           ))}
@@ -361,6 +384,7 @@ function Why() {
     </section>
   );
 }
+
 
 const suiteItems = [
   { label: "Chat", Icon: MessageSquare },
