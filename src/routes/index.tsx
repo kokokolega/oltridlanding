@@ -387,22 +387,32 @@ function Why() {
 
 
 const suiteItems = [
-  { label: "Chat", Icon: MessageSquare },
-  { label: "Documents", Icon: FileText },
-  { label: "Presentations", Icon: Presentation },
-  { label: "Mind Maps", Icon: Network },
-  { label: "Websites", Icon: Globe },
-  { label: "Workflows", Icon: Workflow },
-  { label: "Canvas", Icon: PenTool },
-  { label: "Spreadsheets", Icon: Table2 },
+  { label: "Chat", Icon: MessageSquare, desc: "One thread that remembers it all." },
+  { label: "Documents", Icon: FileText, desc: "Drafts, specs and PRDs in seconds." },
+  { label: "Presentations", Icon: Presentation, desc: "Decks built from your context." },
+  { label: "Mind Maps", Icon: Network, desc: "Turn thinking into structure." },
+  { label: "Websites", Icon: Globe, desc: "Describe it, ship a live page." },
+  { label: "Workflows", Icon: Workflow, desc: "Automations without the wiring." },
+  { label: "Canvas", Icon: PenTool, desc: "Sketch ideas beside your work." },
+  { label: "Spreadsheets", Icon: Table2, desc: "Numbers that stay in sync." },
 ];
 
 function Suite() {
+  const [active, setActive] = useState(1);
+  const { ref, shown } = useReveal();
+
+  useEffect(() => {
+    if (!shown) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % suiteItems.length), 2200);
+    return () => clearInterval(id);
+  }, [shown]);
+
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+    <section ref={ref} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
       <Reveal>
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight">
+          <Eyebrow>The suite</Eyebrow>
+          <h2 className="mt-4 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight leading-[1.05]">
             One chat. Everything you can create.
           </h2>
           <p className="mt-3 text-sm md:text-base text-muted-foreground">
@@ -410,21 +420,39 @@ function Suite() {
           </p>
         </div>
       </Reveal>
-      <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {suiteItems.map((it, i) => (
-          <Reveal key={it.label} delay={i * 60}>
-            <div className="group h-full rounded-2xl border border-border bg-card p-5 sm:p-6 flex flex-col items-start gap-3 transition-all hover:-translate-y-1 hover:border-lime hover:shadow-lg">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface group-hover:bg-lime transition-colors">
-                <it.Icon className="h-5 w-5" />
-              </span>
-              <span className="font-display font-semibold text-sm sm:text-base">{it.label}</span>
-            </div>
-          </Reveal>
-        ))}
+      <div className="mt-10 md:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {suiteItems.map((it, i) => {
+          const on = i === active;
+          return (
+            <Reveal key={it.label} delay={i * 50}>
+              <button
+                type="button"
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                className={`group h-full w-full text-left rounded-2xl border p-4 sm:p-6 flex flex-col items-start gap-3 transition-all duration-500 ${
+                  on
+                    ? "border-lime bg-card -translate-y-1 shadow-[0_24px_60px_-30px_oklch(0.9_0.24_130)]"
+                    : "border-border bg-card/70 hover:-translate-y-1 hover:border-lime/60"
+                }`}
+              >
+                <span
+                  className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-500 ${
+                    on ? "bg-lime text-primary" : "bg-surface text-foreground"
+                  }`}
+                >
+                  <it.Icon className="h-5 w-5" />
+                </span>
+                <span className="font-display font-semibold text-sm sm:text-base">{it.label}</span>
+                <span className="text-xs text-muted-foreground leading-relaxed">{it.desc}</span>
+              </button>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );
 }
+
 
 const memorySteps = [
   { day: "Monday", action: "Create roadmap", detail: "You outline the Q3 plan in chat." },
