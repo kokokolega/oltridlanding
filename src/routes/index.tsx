@@ -860,33 +860,19 @@ function NewsletterForm() {
 
 const footerGroups: { heading: string; links: { label: string; to: string; hash?: boolean }[] }[] = [
   {
-    heading: "Product",
+    heading: "Legal",
     links: [
-      { label: "Features", to: "#product", hash: true },
-      { label: "Demo", to: "#demo", hash: true },
-      { label: "Pricing", to: "/pricing" },
-      { label: "Register", to: "/register" },
-    ],
-  },
-  {
-    heading: "Resources",
-    links: [
-      { label: "Blog", to: "/blog" },
-      { label: "Documentation", to: "/docs" },
-      { label: "Community", to: "/community" },
-      { label: "FAQ", to: "/faq" },
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "Contact", to: "/contact" },
-      { label: "Privacy", to: "/privacy" },
+      { label: "Privacy Policy", to: "/privacy" },
       { label: "Terms", to: "/terms" },
       { label: "Cookie Policy", to: "/cookies" },
     ],
   },
+  {
+    heading: "Contact",
+    links: [{ label: "Contact", to: "/contact" }],
+  },
 ];
+
 
 function Footer() {
   return (
