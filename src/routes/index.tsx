@@ -885,7 +885,7 @@ function Footer() {
             </div>
             <p className="mt-4 text-sm">Your AI workspace for everything.</p>
           </div>
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6 text-sm">
+          <div className="mt-8 grid grid-cols-2 gap-6 text-sm">
             {footerGroups.map((g) => (
               <div key={g.heading}>
                 <h4 className="font-display font-bold text-xs tracking-wide uppercase text-muted-foreground">
