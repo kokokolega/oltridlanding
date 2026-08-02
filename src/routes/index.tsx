@@ -530,23 +530,31 @@ function BeforeAfter() {
   const collapsed = active === oldStack.length;
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-      <div ref={ref} className="rounded-[2rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14">
-        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-center">
-          Six tools before. One after.
-        </h2>
-        <div className="mt-10 grid md:grid-cols-[1fr_auto_1fr] items-center gap-8">
-          <div>
-            <p className="text-xs font-mono text-muted-foreground mb-3">BEFORE</p>
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <div
+        ref={ref}
+        className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14"
+      >
+        <div className="text-center max-w-2xl mx-auto">
+          <Eyebrow>The switch</Eyebrow>
+          <h2 className="mt-4 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight leading-[1.05]">
+            Six tools before. One after.
+          </h2>
+        </div>
+
+        <div className="mt-10 md:mt-14 grid gap-6 md:gap-8 md:grid-cols-[1fr_auto_1fr] md:items-center">
+          <div className="min-w-0">
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">Before</p>
             <ul className="flex flex-col gap-2">
               {oldStack.map((t, i) => (
                 <li
                   key={t}
-                  className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm transition-all duration-500"
+                  className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm transition-all duration-500 will-change-transform"
                   style={{
-                    opacity: collapsed ? 0.25 : i <= active ? 1 : 0.35,
+                    opacity: collapsed ? 0.2 : i <= active ? 1 : 0.35,
+                    filter: collapsed ? "blur(1px)" : "none",
                     transform: collapsed
-                      ? "translateX(12px) scale(.97)"
+                      ? "translateX(14px) scale(.96)"
                       : i === active
                         ? "translateX(8px)"
                         : "translateX(0)",
@@ -557,26 +565,38 @@ function BeforeAfter() {
               ))}
             </ul>
           </div>
-          <div className="flex md:flex-col items-center justify-center text-muted-foreground">
-            <ArrowRight className="h-6 w-6 hidden md:block" />
-            <ArrowDown className="h-6 w-6 md:hidden" />
+
+          <div className="flex items-center justify-center text-muted-foreground">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface">
+              <ArrowRight className="h-5 w-5 hidden md:block" />
+              <ArrowDown className="h-5 w-5 md:hidden" />
+            </span>
           </div>
-          <div>
-            <p className="text-xs font-mono text-muted-foreground mb-3">AFTER</p>
+
+          <div className="min-w-0">
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">After</p>
             <div
-              className="rounded-2xl bg-lime p-8 text-center transition-all duration-700"
-              style={{ transform: collapsed ? "scale(1.03)" : "scale(1)", boxShadow: collapsed ? "0 18px 50px -18px oklch(0.9 0.24 130)" : "none" }}
+              className="rounded-3xl bg-lime p-8 sm:p-10 text-center transition-all duration-700"
+              style={{
+                transform: collapsed ? "scale(1.03)" : "scale(1)",
+                boxShadow: collapsed ? "0 30px 70px -30px oklch(0.9 0.24 130)" : "0 10px 40px -30px oklch(0.9 0.24 130)",
+              }}
             >
               <img src={logo.url} alt="Oltrid AI" className="h-8 w-auto mx-auto" />
-              <p className="mt-4 font-display font-bold text-xl text-primary">One place.</p>
-              <p className="font-display font-bold text-xl text-primary">One memory.</p>
-              <p className="font-display font-bold text-xl text-primary">One workflow.</p>
+              <p className="mt-5 font-display font-bold text-xl sm:text-2xl text-primary leading-snug">
+                One place.
+                <br />
+                One memory.
+                <br />
+                One workflow.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
+
 }
 
 
