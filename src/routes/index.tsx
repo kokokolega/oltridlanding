@@ -328,31 +328,54 @@ const whyItems = [
   { n: "04", title: "COMPLETE WORK FASTER", desc: "Go from idea to finished deliverable in a single conversation, not a dozen tabs." },
 ];
 
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
+      <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+      {children}
+    </span>
+  );
+}
+
 function Why() {
   return (
-    <section id="product" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 scroll-mt-20">
-      <div className="rounded-[2rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
-        <div className="grid md:grid-cols-3 gap-8 items-start">
+    <section id="product" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 scroll-mt-20">
+      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full bg-lime/25 blur-3xl"
+        />
+        <div className="relative grid gap-6 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <Reveal>
-            <h2 className="md:col-span-2 font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-none">
-              WHY PEOPLE CHOOSE OLTRID
-            </h2>
+            <div className="min-w-0">
+              <Eyebrow>Why Oltrid</Eyebrow>
+              <h2 className="mt-4 font-display font-bold text-[2rem] leading-[0.95] sm:text-5xl md:text-6xl tracking-tight">
+                Why people
+                <br className="hidden sm:block" /> choose Oltrid
+              </h2>
+            </div>
           </Reveal>
           <Reveal delay={120}>
-            <p className="text-sm text-muted-foreground max-w-xs md:mt-4">
+            <p className="text-sm md:text-base text-muted-foreground md:max-w-sm md:ml-auto md:text-right">
               Not another chatbot. A workspace with memory that actually finishes the work with you.
             </p>
           </Reveal>
         </div>
-        <div className="mt-10 grid sm:grid-cols-2 gap-5">
+
+        <div className="relative mt-10 md:mt-14 grid gap-4 sm:gap-5 sm:grid-cols-2">
           {whyItems.map((it, i) => (
-            <Reveal key={it.n} delay={i * 100}>
-              <div className="group relative overflow-hidden rounded-2xl bg-card p-6 sm:p-8 min-h-[14rem] transition-all hover:-translate-y-1 hover:shadow-xl">
-                <h3 className="font-semibold tracking-wide text-sm sm:text-base max-w-[18ch]">{it.title}</h3>
-                <p className="mt-4 text-sm text-muted-foreground max-w-[18rem]">{it.desc}</p>
-                <span className="pointer-events-none absolute -bottom-6 -right-2 font-display font-bold text-[7rem] sm:text-[9rem] leading-none text-muted-foreground/15 select-none group-hover:text-lime/40 transition-colors">
-                  {it.n}
-                </span>
+            <Reveal key={it.n} delay={i * 90}>
+              <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-lime hover:shadow-[0_24px_60px_-30px_oklch(0.9_0.24_130)]">
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-0.5 w-0 bg-lime transition-all duration-500 group-hover:w-full"
+                />
+                <span className="font-mono text-xs text-muted-foreground">{it.n}</span>
+                <h3 className="mt-4 font-display font-bold uppercase tracking-tight text-lg sm:text-xl leading-tight max-w-[20ch]">
+                  {it.title}
+                </h3>
+                <p className="mt-3 text-sm text-muted-foreground max-w-[34ch]">{it.desc}</p>
+                <ArrowUpRight className="mt-6 h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:text-lime group-hover:translate-x-1 group-hover:-translate-y-1" />
               </div>
             </Reveal>
           ))}
@@ -362,23 +385,34 @@ function Why() {
   );
 }
 
+
 const suiteItems = [
-  { label: "Chat", Icon: MessageSquare },
-  { label: "Documents", Icon: FileText },
-  { label: "Presentations", Icon: Presentation },
-  { label: "Mind Maps", Icon: Network },
-  { label: "Websites", Icon: Globe },
-  { label: "Workflows", Icon: Workflow },
-  { label: "Canvas", Icon: PenTool },
-  { label: "Spreadsheets", Icon: Table2 },
+  { label: "Chat", Icon: MessageSquare, desc: "One thread that remembers it all." },
+  { label: "Documents", Icon: FileText, desc: "Drafts, specs and PRDs in seconds." },
+  { label: "Presentations", Icon: Presentation, desc: "Decks built from your context." },
+  { label: "Mind Maps", Icon: Network, desc: "Turn thinking into structure." },
+  { label: "Websites", Icon: Globe, desc: "Describe it, ship a live page." },
+  { label: "Workflows", Icon: Workflow, desc: "Automations without the wiring." },
+  { label: "Canvas", Icon: PenTool, desc: "Sketch ideas beside your work." },
+  { label: "Spreadsheets", Icon: Table2, desc: "Numbers that stay in sync." },
 ];
 
 function Suite() {
+  const [active, setActive] = useState(1);
+  const { ref, shown } = useReveal();
+
+  useEffect(() => {
+    if (!shown) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % suiteItems.length), 2200);
+    return () => clearInterval(id);
+  }, [shown]);
+
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+    <section ref={ref} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
       <Reveal>
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight">
+          <Eyebrow>The suite</Eyebrow>
+          <h2 className="mt-4 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight leading-[1.05]">
             One chat. Everything you can create.
           </h2>
           <p className="mt-3 text-sm md:text-base text-muted-foreground">
@@ -386,21 +420,39 @@ function Suite() {
           </p>
         </div>
       </Reveal>
-      <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        {suiteItems.map((it, i) => (
-          <Reveal key={it.label} delay={i * 60}>
-            <div className="group h-full rounded-2xl border border-border bg-card p-5 sm:p-6 flex flex-col items-start gap-3 transition-all hover:-translate-y-1 hover:border-lime hover:shadow-lg">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface group-hover:bg-lime transition-colors">
-                <it.Icon className="h-5 w-5" />
-              </span>
-              <span className="font-display font-semibold text-sm sm:text-base">{it.label}</span>
-            </div>
-          </Reveal>
-        ))}
+      <div className="mt-10 md:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {suiteItems.map((it, i) => {
+          const on = i === active;
+          return (
+            <Reveal key={it.label} delay={i * 50}>
+              <button
+                type="button"
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                className={`group h-full w-full text-left rounded-2xl border p-4 sm:p-6 flex flex-col items-start gap-3 transition-all duration-500 ${
+                  on
+                    ? "border-lime bg-card -translate-y-1 shadow-[0_24px_60px_-30px_oklch(0.9_0.24_130)]"
+                    : "border-border bg-card/70 hover:-translate-y-1 hover:border-lime/60"
+                }`}
+              >
+                <span
+                  className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors duration-500 ${
+                    on ? "bg-lime text-primary" : "bg-surface text-foreground"
+                  }`}
+                >
+                  <it.Icon className="h-5 w-5" />
+                </span>
+                <span className="font-display font-semibold text-sm sm:text-base">{it.label}</span>
+                <span className="text-xs text-muted-foreground leading-relaxed">{it.desc}</span>
+              </button>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );
 }
+
 
 const memorySteps = [
   { day: "Monday", action: "Create roadmap", detail: "You outline the Q3 plan in chat." },
@@ -410,27 +462,49 @@ const memorySteps = [
 
 function Memory() {
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-      <div className="rounded-[2rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-lime/20 blur-3xl"
+        />
         <Reveal>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight max-w-3xl">
-            Memory-centric actions
-          </h2>
-          <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl">
-            Oltrid already remembers everything — automatically.
-          </p>
+          <div className="relative">
+            <Eyebrow>Memory</Eyebrow>
+            <h2 className="mt-4 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight max-w-3xl leading-[1.05]">
+              Memory-centric actions
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl">
+              One week, one thread. Oltrid already remembers everything — automatically.
+            </p>
+          </div>
         </Reveal>
-        <ol className="mt-10 grid md:grid-cols-3 gap-4 md:gap-5 relative">
+
+        <ol className="relative mt-10 md:mt-14 grid gap-4 md:gap-6 md:grid-cols-3">
+          <span
+            aria-hidden
+            className="hidden md:block absolute left-0 right-0 top-7 h-px bg-gradient-to-r from-lime/0 via-lime/60 to-lime/0"
+          />
           {memorySteps.map((s, i) => (
             <Reveal key={s.day} delay={i * 140}>
-              <li className="relative h-full rounded-2xl bg-card p-6 border border-border">
-                <span className="text-xs font-mono text-muted-foreground">{s.day}</span>
-                <div className="mt-2 flex items-center gap-2">
-                  <ArrowUpRight className="h-4 w-4 text-lime" />
-                  <h3 className="font-display font-bold text-lg sm:text-xl">{s.action}</h3>
+              <li className="group relative h-full rounded-2xl border border-border bg-surface p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-lime hover:bg-card">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="inline-flex items-center rounded-full bg-card px-3 py-1 text-[11px] font-mono uppercase tracking-widest text-muted-foreground group-hover:bg-lime group-hover:text-primary transition-colors">
+                    {s.day}
+                  </span>
+                  <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
+                </div>
+                <div className="mt-5 flex items-start gap-2">
+                  <ArrowUpRight className="h-5 w-5 shrink-0 text-lime" />
+                  <h3 className="font-display font-bold text-lg sm:text-xl leading-tight">{s.action}</h3>
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground">{s.detail}</p>
-                <span className="mt-5 block h-1 rounded-full bg-lime/70" style={{ width: `${(i + 1) * 33}%` }} />
+                <span className="mt-6 block h-1 rounded-full bg-border overflow-hidden">
+                  <span
+                    className="block h-full rounded-full bg-lime transition-all duration-700"
+                    style={{ width: `${((i + 1) / memorySteps.length) * 100}%` }}
+                  />
+                </span>
               </li>
             </Reveal>
           ))}
@@ -439,6 +513,7 @@ function Memory() {
     </section>
   );
 }
+
 
 const oldStack = ["ChatGPT", "Google Docs", "Canva", "Notion", "Drive", "Zapier"];
 
@@ -455,23 +530,31 @@ function BeforeAfter() {
   const collapsed = active === oldStack.length;
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-      <div ref={ref} className="rounded-[2rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14">
-        <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight text-center">
-          Six tools before. One after.
-        </h2>
-        <div className="mt-10 grid md:grid-cols-[1fr_auto_1fr] items-center gap-8">
-          <div>
-            <p className="text-xs font-mono text-muted-foreground mb-3">BEFORE</p>
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <div
+        ref={ref}
+        className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14"
+      >
+        <div className="text-center max-w-2xl mx-auto">
+          <Eyebrow>The switch</Eyebrow>
+          <h2 className="mt-4 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight leading-[1.05]">
+            Six tools before. One after.
+          </h2>
+        </div>
+
+        <div className="mt-10 md:mt-14 grid gap-6 md:gap-8 md:grid-cols-[1fr_auto_1fr] md:items-center">
+          <div className="min-w-0">
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">Before</p>
             <ul className="flex flex-col gap-2">
               {oldStack.map((t, i) => (
                 <li
                   key={t}
-                  className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm transition-all duration-500"
+                  className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm transition-all duration-500 will-change-transform"
                   style={{
-                    opacity: collapsed ? 0.25 : i <= active ? 1 : 0.35,
+                    opacity: collapsed ? 0.2 : i <= active ? 1 : 0.35,
+                    filter: collapsed ? "blur(1px)" : "none",
                     transform: collapsed
-                      ? "translateX(12px) scale(.97)"
+                      ? "translateX(14px) scale(.96)"
                       : i === active
                         ? "translateX(8px)"
                         : "translateX(0)",
@@ -482,26 +565,38 @@ function BeforeAfter() {
               ))}
             </ul>
           </div>
-          <div className="flex md:flex-col items-center justify-center text-muted-foreground">
-            <ArrowRight className="h-6 w-6 hidden md:block" />
-            <ArrowDown className="h-6 w-6 md:hidden" />
+
+          <div className="flex items-center justify-center text-muted-foreground">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface">
+              <ArrowRight className="h-5 w-5 hidden md:block" />
+              <ArrowDown className="h-5 w-5 md:hidden" />
+            </span>
           </div>
-          <div>
-            <p className="text-xs font-mono text-muted-foreground mb-3">AFTER</p>
+
+          <div className="min-w-0">
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">After</p>
             <div
-              className="rounded-2xl bg-lime p-8 text-center transition-all duration-700"
-              style={{ transform: collapsed ? "scale(1.03)" : "scale(1)", boxShadow: collapsed ? "0 18px 50px -18px oklch(0.9 0.24 130)" : "none" }}
+              className="rounded-3xl bg-lime p-8 sm:p-10 text-center transition-all duration-700"
+              style={{
+                transform: collapsed ? "scale(1.03)" : "scale(1)",
+                boxShadow: collapsed ? "0 30px 70px -30px oklch(0.9 0.24 130)" : "0 10px 40px -30px oklch(0.9 0.24 130)",
+              }}
             >
               <img src={logo.url} alt="Oltrid AI" className="h-8 w-auto mx-auto" />
-              <p className="mt-4 font-display font-bold text-xl text-primary">One place.</p>
-              <p className="font-display font-bold text-xl text-primary">One memory.</p>
-              <p className="font-display font-bold text-xl text-primary">One workflow.</p>
+              <p className="mt-5 font-display font-bold text-xl sm:text-2xl text-primary leading-snug">
+                One place.
+                <br />
+                One memory.
+                <br />
+                One workflow.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
+
 }
 
 
@@ -860,33 +955,19 @@ function NewsletterForm() {
 
 const footerGroups: { heading: string; links: { label: string; to: string; hash?: boolean }[] }[] = [
   {
-    heading: "Product",
+    heading: "Legal",
     links: [
-      { label: "Features", to: "#product", hash: true },
-      { label: "Demo", to: "#demo", hash: true },
-      { label: "Pricing", to: "/pricing" },
-      { label: "Register", to: "/register" },
-    ],
-  },
-  {
-    heading: "Resources",
-    links: [
-      { label: "Blog", to: "/blog" },
-      { label: "Documentation", to: "/docs" },
-      { label: "Community", to: "/community" },
-      { label: "FAQ", to: "/faq" },
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "Contact", to: "/contact" },
-      { label: "Privacy", to: "/privacy" },
+      { label: "Privacy Policy", to: "/privacy" },
       { label: "Terms", to: "/terms" },
       { label: "Cookie Policy", to: "/cookies" },
     ],
   },
+  {
+    heading: "Contact",
+    links: [{ label: "Contact", to: "/contact" }],
+  },
 ];
+
 
 function Footer() {
   return (
@@ -899,7 +980,7 @@ function Footer() {
             </div>
             <p className="mt-4 text-sm">Your AI workspace for everything.</p>
           </div>
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6 text-sm">
+          <div className="mt-8 grid grid-cols-2 gap-6 text-sm">
             {footerGroups.map((g) => (
               <div key={g.heading}>
                 <h4 className="font-display font-bold text-xs tracking-wide uppercase text-muted-foreground">
