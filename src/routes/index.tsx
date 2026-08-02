@@ -462,27 +462,49 @@ const memorySteps = [
 
 function Memory() {
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-      <div className="rounded-[2rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-lime/20 blur-3xl"
+        />
         <Reveal>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight max-w-3xl">
-            Memory-centric actions
-          </h2>
-          <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl">
-            Oltrid already remembers everything — automatically.
-          </p>
+          <div className="relative">
+            <Eyebrow>Memory</Eyebrow>
+            <h2 className="mt-4 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight max-w-3xl leading-[1.05]">
+              Memory-centric actions
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl">
+              One week, one thread. Oltrid already remembers everything — automatically.
+            </p>
+          </div>
         </Reveal>
-        <ol className="mt-10 grid md:grid-cols-3 gap-4 md:gap-5 relative">
+
+        <ol className="relative mt-10 md:mt-14 grid gap-4 md:gap-6 md:grid-cols-3">
+          <span
+            aria-hidden
+            className="hidden md:block absolute left-0 right-0 top-7 h-px bg-gradient-to-r from-lime/0 via-lime/60 to-lime/0"
+          />
           {memorySteps.map((s, i) => (
             <Reveal key={s.day} delay={i * 140}>
-              <li className="relative h-full rounded-2xl bg-card p-6 border border-border">
-                <span className="text-xs font-mono text-muted-foreground">{s.day}</span>
-                <div className="mt-2 flex items-center gap-2">
-                  <ArrowUpRight className="h-4 w-4 text-lime" />
-                  <h3 className="font-display font-bold text-lg sm:text-xl">{s.action}</h3>
+              <li className="group relative h-full rounded-2xl border border-border bg-surface p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-lime hover:bg-card">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="inline-flex items-center rounded-full bg-card px-3 py-1 text-[11px] font-mono uppercase tracking-widest text-muted-foreground group-hover:bg-lime group-hover:text-primary transition-colors">
+                    {s.day}
+                  </span>
+                  <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
+                </div>
+                <div className="mt-5 flex items-start gap-2">
+                  <ArrowUpRight className="h-5 w-5 shrink-0 text-lime" />
+                  <h3 className="font-display font-bold text-lg sm:text-xl leading-tight">{s.action}</h3>
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground">{s.detail}</p>
-                <span className="mt-5 block h-1 rounded-full bg-lime/70" style={{ width: `${(i + 1) * 33}%` }} />
+                <span className="mt-6 block h-1 rounded-full bg-border overflow-hidden">
+                  <span
+                    className="block h-full rounded-full bg-lime transition-all duration-700"
+                    style={{ width: `${((i + 1) / memorySteps.length) * 100}%` }}
+                  />
+                </span>
               </li>
             </Reveal>
           ))}
@@ -491,6 +513,7 @@ function Memory() {
     </section>
   );
 }
+
 
 const oldStack = ["ChatGPT", "Google Docs", "Canva", "Notion", "Drive", "Zapier"];
 
