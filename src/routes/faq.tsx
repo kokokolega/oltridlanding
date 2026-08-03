@@ -19,7 +19,7 @@ const qas = [
   ["Who should attend?", "Founders, engineers, researchers, and product leaders building with or around AI."],
   ["What's included in the ticket?", "Access to all talks, workshops, the networking lounge, and daily lunch."],
   ["Can I get a refund?", "Full refunds up to 30 days before the event. After that, tickets are transferable to a colleague."],
-  ["Are talks recorded?", "Yes — recordings are shared with attendees within two weeks."],
+  ["Are talks recorded?", "Yes - recordings are shared with attendees within two weeks."],
   ["Is there a code of conduct?", "Yes. Be respectful, be curious, no harassment of any kind. Full policy shared with your ticket."],
 ];
 

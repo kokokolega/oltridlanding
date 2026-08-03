@@ -4,9 +4,9 @@ import { InfoPage } from "@/components/InfoPage";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — Oltrid AI" },
+      { title: "Blog - Oltrid AI" },
       { name: "description", content: "Notes on AI memory, agentic workflows and building an AI workspace that actually finishes work." },
-      { property: "og:title", content: "Blog — Oltrid AI" },
+      { property: "og:title", content: "Blog - Oltrid AI" },
       { property: "og:description", content: "Notes on AI memory, agentic workflows and product updates from the Oltrid team." },
     ],
   }),
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/blog")({
 const posts = [
   { title: "Why context is the real AI bottleneck", date: "Jul 2026", excerpt: "Most AI tools forget you the moment you close the tab. Here's how persistent memory changes the way work gets done." },
   { title: "From prompt to deliverable", date: "Jun 2026", excerpt: "Chat is the interface, but documents, decks and workflows are the output. A look at how Oltrid ships artifacts." },
-  { title: "Killing the six-tool stack", date: "May 2026", excerpt: "ChatGPT, Docs, Canva, Notion, Drive, Zapier — what happens when one workspace absorbs all of them." },
+  { title: "Killing the six-tool stack", date: "May 2026", excerpt: "ChatGPT, Docs, Canva, Notion, Drive, Zapier - what happens when one workspace absorbs all of them." },
 ];
 
 function Blog() {

@@ -73,10 +73,10 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 function Nav() {
   const [open, setOpen] = useState(false);
   const links = [
-    { label: "Product", href: "#product" },
-    { label: "Demo", href: "#demo" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Blog", href: "/blog" },
+    { label: "Home", href: "#home" },
+    { label: "Features", href: "#features" },
+    { label: "Contact", href: "#contact" },
+    { label: "Switch", href: "#switch" },
   ];
 
   return (
@@ -306,7 +306,7 @@ function Hero() {
         </Reveal>
         <Reveal delay={240}>
           <p className="mt-6 text-sm md:text-base font-mono text-muted-foreground max-w-2xl mx-auto">
-            From idea to execution—chat, documents, files, automation, and memory in one place.
+            From idea to execution-chat, documents, files, automation, and memory in one place.
           </p>
         </Reveal>
 
@@ -322,7 +322,7 @@ function Hero() {
 }
 
 const whyItems = [
-  { n: "01", title: "NEVER LOSE CONTEXT", desc: "Pick up any project exactly where you left it — Oltrid carries the full history with you." },
+  { n: "01", title: "NEVER LOSE CONTEXT", desc: "Pick up any project exactly where you left it - Oltrid carries the full history with you." },
   { n: "02", title: "ONE AI THAT REMEMBERS EVERYTHING", desc: "Your decisions, files and preferences stay in memory, so you never repeat yourself again." },
   { n: "03", title: "STOP SWITCHING BETWEEN APPS", desc: "Docs, decks, sheets, sites and automations all live inside one chat window." },
   { n: "04", title: "COMPLETE WORK FASTER", desc: "Go from idea to finished deliverable in a single conversation, not a dozen tabs." },
@@ -408,7 +408,7 @@ function Suite() {
   }, [shown]);
 
   return (
-    <section ref={ref} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <section id="features" ref={ref} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 scroll-mt-24">
       <Reveal>
         <div className="text-center max-w-2xl mx-auto">
           <Eyebrow>The suite</Eyebrow>
@@ -416,7 +416,7 @@ function Suite() {
             One chat. Everything you can create.
           </h2>
           <p className="mt-3 text-sm md:text-base text-muted-foreground">
-            Ask once — Oltrid builds it, remembers it, and keeps improving it.
+            Ask once - Oltrid builds it, remembers it, and keeps improving it.
           </p>
         </div>
       </Reveal>
@@ -475,7 +475,7 @@ function Memory() {
               Memory-centric actions
             </h2>
             <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl">
-              One week, one thread. Oltrid already remembers everything — automatically.
+              One week, one thread. Oltrid already remembers everything - automatically.
             </p>
           </div>
         </Reveal>
@@ -515,7 +515,14 @@ function Memory() {
 }
 
 
-const oldStack = ["ChatGPT", "Google Docs", "Canva", "Notion", "Drive", "Zapier"];
+const oldStack = [
+  { name: "ChatGPT", color: "bg-emerald-100 text-emerald-700" },
+  { name: "Google Docs", color: "bg-blue-100 text-blue-700" },
+  { name: "Canva", color: "bg-teal-100 text-teal-700" },
+  { name: "Notion", color: "bg-stone-200 text-stone-700" },
+  { name: "Drive", color: "bg-yellow-100 text-yellow-700" },
+  { name: "Zapier", color: "bg-orange-100 text-orange-700" },
+];
 
 function BeforeAfter() {
   const [active, setActive] = useState(0);
@@ -523,80 +530,95 @@ function BeforeAfter() {
 
   useEffect(() => {
     if (!shown) return;
-    const id = setInterval(() => setActive((a) => (a + 1) % (oldStack.length + 1)), 900);
+    const id = setInterval(() => setActive((a) => (a + 1) % (oldStack.length + 1)), 1100);
     return () => clearInterval(id);
   }, [shown]);
 
   const collapsed = active === oldStack.length;
 
   return (
-    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <section id="switch" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 scroll-mt-24">
       <div
         ref={ref}
         className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14"
       >
-        <div className="text-center max-w-2xl mx-auto">
-          <Eyebrow>The switch</Eyebrow>
-          <h2 className="mt-4 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight leading-[1.05]">
-            Six tools before. One after.
-          </h2>
-        </div>
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="max-w-xl">
+            <Eyebrow>The switch</Eyebrow>
+            <h2 className="mt-5 font-display font-bold text-[2rem] sm:text-4xl md:text-5xl tracking-tight leading-[1.05]">
+              Stop juggling ChatGPT, Google Docs, Canva, Notion, Drive, and Zapier.
+            </h2>
+            <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed">
+              Switch to Oltrid AI - one place, one memory, one workflow, where everything you need works together seamlessly.
+            </p>
+            <a
+              href="https://app.oltrid.com/auth"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:opacity-90 transition"
+            >
+              Make the switch
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
 
-        <div className="mt-10 md:mt-14 grid gap-6 md:gap-8 md:grid-cols-[1fr_auto_1fr] md:items-center">
-          <div className="min-w-0">
-            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">Before</p>
-            <ul className="flex flex-col gap-2">
-              {oldStack.map((t, i) => (
-                <li
-                  key={t}
-                  className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm transition-all duration-500 will-change-transform"
+          <div className="relative">
+            <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
+              <div className="min-w-0">
+                <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">Before</p>
+                <ul className="flex flex-col gap-2">
+                  {oldStack.map((t, i) => {
+                    const isActive = i === active && !collapsed;
+                    const isPast = i <= active || collapsed;
+                    return (
+                      <li
+                        key={t.name}
+                        className={`rounded-xl border px-4 py-2.5 text-sm font-medium transition-all duration-500 will-change-transform ${
+                          isActive
+                            ? "border-lime bg-card translate-x-2 shadow-[0_12px_30px_-20px_oklch(0.9_0.24_130)]"
+                            : isPast
+                              ? "border-border bg-surface opacity-70"
+                              : "border-border/60 bg-surface/60 opacity-40"
+                        }`}
+                        style={{
+                          transform: collapsed ? "translateX(10px) scale(0.98)" : "translateX(0)",
+                        }}
+                      >
+                        {t.name}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div className="flex items-center justify-center text-muted-foreground">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface">
+                  <ArrowRight className="h-5 w-5 hidden md:block" />
+                  <ArrowDown className="h-5 w-5 md:hidden" />
+                </span>
+              </div>
+
+              <div className="min-w-0">
+                <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">After</p>
+                <div
+                  className="rounded-3xl bg-lime p-6 sm:p-8 text-center transition-all duration-700"
                   style={{
-                    opacity: collapsed ? 0.2 : i <= active ? 1 : 0.35,
-                    filter: collapsed ? "blur(1px)" : "none",
-                    transform: collapsed
-                      ? "translateX(14px) scale(.96)"
-                      : i === active
-                        ? "translateX(8px)"
-                        : "translateX(0)",
+                    transform: collapsed ? "scale(1.03)" : "scale(1)",
+                    boxShadow: collapsed
+                      ? "0 30px 70px -30px oklch(0.9 0.24 130)"
+                      : "0 10px 40px -30px oklch(0.9 0.24 130)",
                   }}
                 >
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex items-center justify-center text-muted-foreground">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface">
-              <ArrowRight className="h-5 w-5 hidden md:block" />
-              <ArrowDown className="h-5 w-5 md:hidden" />
-            </span>
-          </div>
-
-          <div className="min-w-0">
-            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">After</p>
-            <div
-              className="rounded-3xl bg-lime p-8 sm:p-10 text-center transition-all duration-700"
-              style={{
-                transform: collapsed ? "scale(1.03)" : "scale(1)",
-                boxShadow: collapsed ? "0 30px 70px -30px oklch(0.9 0.24 130)" : "0 10px 40px -30px oklch(0.9 0.24 130)",
-              }}
-            >
-              <img src={logo.url} alt="Oltrid AI" className="h-8 w-auto mx-auto" />
-              <p className="mt-5 font-display font-bold text-xl sm:text-2xl text-primary leading-snug">
-                One place.
-                <br />
-                One memory.
-                <br />
-                One workflow.
-              </p>
+                  <img src={logo.url} alt="Oltrid AI" className="h-8 w-auto mx-auto" />
+                  <p className="mt-4 font-display font-bold text-lg sm:text-xl text-primary leading-snug">
+                    One place. One memory. One workflow.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-
 }
 
 
@@ -680,7 +702,7 @@ function Juggle() {
           ref={containerRef}
           className="relative rounded-3xl bg-surface border border-border py-10 px-4 sm:py-12 sm:px-6 md:py-16 md:px-14 overflow-hidden"
         >
-          {/* SVG: connection lines + endpoint dots — desktop only */}
+          {/* SVG: connection lines + endpoint dots - desktop only */}
           <svg
             aria-hidden
             className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
@@ -702,7 +724,7 @@ function Juggle() {
             ))}
           </svg>
 
-          {/* Traveling light — desktop only */}
+          {/* Traveling light - desktop only */}
           <div className="absolute inset-0 pointer-events-none hidden md:block" style={{ zIndex: 1 }}>
             {allConns.map((c, i) => (
               <span

@@ -4,9 +4,9 @@ import { InfoPage } from "@/components/InfoPage";
 export const Route = createFileRoute("/community")({
   head: () => ({
     meta: [
-      { title: "Community — Oltrid AI" },
+      { title: "Community - Oltrid AI" },
       { name: "description", content: "Join the Oltrid community on LinkedIn, Instagram and YouTube to share workflows and shape the roadmap." },
-      { property: "og:title", content: "Community — Oltrid AI" },
+      { property: "og:title", content: "Community - Oltrid AI" },
       { property: "og:description", content: "Share workflows, give feedback and shape the Oltrid roadmap." },
     ],
   }),
@@ -21,7 +21,7 @@ const channels = [
 
 function Community() {
   return (
-    <InfoPage title="Community" intro="Build with us — early users shape what ships next.">
+    <InfoPage title="Community" intro="Build with us - early users shape what ships next.">
       <div className="grid sm:grid-cols-3 gap-5 not-prose">
         {channels.map((c) => (
           <a

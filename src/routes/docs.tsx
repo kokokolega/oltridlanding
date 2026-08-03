@@ -4,9 +4,9 @@ import { InfoPage } from "@/components/InfoPage";
 export const Route = createFileRoute("/docs")({
   head: () => ({
     meta: [
-      { title: "Documentation — Oltrid AI" },
+      { title: "Documentation - Oltrid AI" },
       { name: "description", content: "Learn how Oltrid memory, documents, presentations, workflows and canvas work together in one chat." },
-      { property: "og:title", content: "Documentation — Oltrid AI" },
+      { property: "og:title", content: "Documentation - Oltrid AI" },
       { property: "og:description", content: "Guides for memory, documents, workflows and everything Oltrid can create." },
     ],
   }),
@@ -17,7 +17,7 @@ function Docs() {
   return (
     <InfoPage title="Documentation" intro="Everything you need to get productive with Oltrid.">
       <h2>Getting started</h2>
-      <p>Create an account, open the chat window, and describe what you want. Oltrid picks the right output — a document, a presentation, a spreadsheet, a website or a workflow — and builds it in the conversation.</p>
+      <p>Create an account, open the chat window, and describe what you want. Oltrid picks the right output - a document, a presentation, a spreadsheet, a website or a workflow - and builds it in the conversation.</p>
       <h2>Memory</h2>
       <p>Every conversation, file and decision is stored in your workspace memory. You never need to re-upload a file or re-explain a project. Ask "continue the roadmap" days later and Oltrid resumes with full context.</p>
       <h2>Creating things</h2>

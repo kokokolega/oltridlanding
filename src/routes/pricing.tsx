@@ -4,9 +4,9 @@ import { InfoPage } from "@/components/InfoPage";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Oltrid AI" },
+      { title: "Pricing - Oltrid AI" },
       { name: "description", content: "Simple plans for Oltrid AI: start free, upgrade for unlimited memory, automations and team workspaces." },
-      { property: "og:title", content: "Pricing — Oltrid AI" },
+      { property: "og:title", content: "Pricing - Oltrid AI" },
       { property: "og:description", content: "Start free. Upgrade for unlimited memory, automations and team workspaces." },
     ],
   }),
