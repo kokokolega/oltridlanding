@@ -17,7 +17,7 @@ export const Route = createFileRoute("/agenda")({
 
 const days = [
   {
-    day: "Day 1 — Foundations",
+    day: "Day 1 - Foundations",
     date: "March 12, 2026",
     items: [
       ["09:00", "Opening keynote: The State of AI in 2026"],
@@ -29,7 +29,7 @@ const days = [
     ],
   },
   {
-    day: "Day 2 — Applied AI",
+    day: "Day 2 - Applied AI",
     date: "March 13, 2026",
     items: [
       ["09:00", "Keynote: Memory-centric assistants"],
@@ -41,7 +41,7 @@ const days = [
     ],
   },
   {
-    day: "Day 3 — Future",
+    day: "Day 3 - Future",
     date: "March 14, 2026",
     items: [
       ["09:00", "Keynote: The next 10 years of AI"],

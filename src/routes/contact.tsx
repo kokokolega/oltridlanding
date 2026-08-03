@@ -4,9 +4,9 @@ import { InfoPage } from "@/components/InfoPage";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Oltrid AI" },
+      { title: "Contact - Oltrid AI" },
       { name: "description", content: "Get in touch with the Oltrid AI team about early access, partnerships, support or press." },
-      { property: "og:title", content: "Contact — Oltrid AI" },
+      { property: "og:title", content: "Contact - Oltrid AI" },
       { property: "og:description", content: "Reach the Oltrid team about early access, partnerships, support or press." },
     ],
   }),
@@ -23,7 +23,7 @@ function Contact() {
       <h2>Press</h2>
       <p>For media requests and brand assets, contact <a href="mailto:press@oltrid.com">press@oltrid.com</a>.</p>
       <h2>Social</h2>
-      <p>You can also reach us on LinkedIn, Instagram and YouTube — see the community page for links.</p>
+      <p>You can also reach us on LinkedIn, Instagram and YouTube - see the community page for links.</p>
     </InfoPage>
   );
 }

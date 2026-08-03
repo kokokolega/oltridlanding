@@ -77,10 +77,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Oltrid AI — The Future of AI-Powered Productivity" },
+      { title: "Oltrid AI - The Future of AI-Powered Productivity" },
       { name: "description", content: "Seamlessly automate your workflows with Oltrid AI. One chat window to control documents, sheets, dashboards, reminders and AI agents." },
       { name: "author", content: "Oltrid AI" },
-      { property: "og:title", content: "Oltrid AI — The Future of AI-Powered Productivity" },
+      { property: "og:title", content: "Oltrid AI - The Future of AI-Powered Productivity" },
       { property: "og:description", content: "Seamlessly automate your workflows with Oltrid AI." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

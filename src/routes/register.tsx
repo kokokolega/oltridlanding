@@ -6,9 +6,9 @@ export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
       { title: "Register | Oltrid AI Summit" },
-      { name: "description", content: "Reserve your seat at the Oltrid AI Summit — early-bird, standard, and team tickets." },
+      { name: "description", content: "Reserve your seat at the Oltrid AI Summit - early-bird, standard, and team tickets." },
       { property: "og:title", content: "Register | Oltrid AI Summit" },
-      { property: "og:description", content: "Reserve your seat at the Oltrid AI Summit — early-bird, standard, and team tickets." },
+      { property: "og:description", content: "Reserve your seat at the Oltrid AI Summit - early-bird, standard, and team tickets." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

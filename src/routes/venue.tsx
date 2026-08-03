@@ -28,7 +28,7 @@ function Venue() {
       </section>
       <section>
         <h2 className="font-display font-bold text-2xl">Where to stay</h2>
-        <p>We've partnered with nearby hotels for discounted rates — details are sent with your ticket confirmation.</p>
+        <p>We've partnered with nearby hotels for discounted rates - details are sent with your ticket confirmation.</p>
       </section>
     </InfoPage>
   );
