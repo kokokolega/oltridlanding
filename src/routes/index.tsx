@@ -225,7 +225,7 @@ function ChatInput() {
   return (
     <form onSubmit={submit} className="relative mx-auto w-full max-w-2xl">
       <div className="chat-border-glow">
-        <div className="relative rounded-[calc(1.5rem-1.5px)] glass px-4 py-3">
+        <div className="relative z-10 rounded-[calc(1.5rem-1.5px)] glass px-4 py-3">
           <div className="relative w-full py-2">
             <input
               value={value}
