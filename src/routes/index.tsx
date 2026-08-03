@@ -80,7 +80,7 @@ function Nav() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/50">
+    <header className="sticky top-0 z-40 glass-soft border-b border-white/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 shrink-0">
           <img src={logo.url} alt="Oltrid AI" className="h-7 w-auto" />
@@ -105,7 +105,7 @@ function Nav() {
           </a>
         </div>
         <button
-          className="md:hidden p-2 rounded-md hover:bg-muted"
+          className="md:hidden p-2 rounded-md hover:bg-white/50"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -113,7 +113,7 @@ function Nav() {
         </button>
       </div>
       {open && (
-        <div className="md:hidden border-t border-border bg-background animate-fade-up">
+        <div className="md:hidden border-t border-white/40 glass-soft animate-fade-up">
           <div className="px-4 py-4 flex flex-col gap-3">
             {links.map((l) => (
               <a
@@ -225,7 +225,7 @@ function ChatInput() {
   return (
     <form onSubmit={submit} className="relative mx-auto w-full max-w-2xl">
       <div className="chat-border-glow">
-        <div className="relative rounded-[calc(1.5rem-1.5px)] bg-card shadow-sm px-4 py-3">
+        <div className="relative rounded-[calc(1.5rem-1.5px)] glass px-4 py-3">
           <div className="relative w-full py-2">
             <input
               value={value}
@@ -248,13 +248,13 @@ function ChatInput() {
           </div>
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-3 text-muted-foreground">
-              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Attach">
+              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-white/50 transition" aria-label="Attach">
                 <Plus className="h-4 w-4" />
               </button>
-              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Emoji">
+              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-white/50 transition" aria-label="Emoji">
                 <Smile className="h-4 w-4" />
               </button>
-              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-muted transition" aria-label="Image">
+              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-white/50 transition" aria-label="Image">
                 <ImageIcon className="h-4 w-4" />
               </button>
             </div>
@@ -330,7 +330,7 @@ const whyItems = [
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
+    <span className="inline-flex items-center gap-2 rounded-full glass-soft px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground">
       <span className="h-1.5 w-1.5 rounded-full bg-lime" />
       {children}
     </span>
@@ -340,7 +340,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function Why() {
   return (
     <section id="product" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 scroll-mt-20">
-      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] bg-surface p-6 sm:p-10 md:p-14">
+      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] glass p-6 sm:p-10 md:p-14">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-24 -right-16 h-64 w-64 rounded-full bg-lime/25 blur-3xl"
@@ -365,7 +365,7 @@ function Why() {
         <div className="relative mt-10 md:mt-14 grid gap-4 sm:gap-5 sm:grid-cols-2">
           {whyItems.map((it, i) => (
             <Reveal key={it.n} delay={i * 90}>
-              <div className="group relative h-full overflow-hidden rounded-2xl border border-border/70 bg-card p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-lime hover:shadow-[0_24px_60px_-30px_oklch(0.9_0.24_130)]">
+              <div className="group relative h-full overflow-hidden rounded-2xl glass glass-highlight p-6 sm:p-8 transition-all duration-500 hover:-translate-y-1.5 hover:glass-glow">
                 <span
                   aria-hidden
                   className="absolute inset-x-0 top-0 h-0.5 w-0 bg-lime transition-all duration-500 group-hover:w-full"
@@ -463,7 +463,7 @@ const memorySteps = [
 function Memory() {
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
-      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14">
+      <div className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] glass p-6 sm:p-10 md:p-14">
         <div
           aria-hidden
           className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-lime/20 blur-3xl"
@@ -487,9 +487,9 @@ function Memory() {
           />
           {memorySteps.map((s, i) => (
             <Reveal key={s.day} delay={i * 140}>
-              <li className="group relative h-full rounded-2xl border border-border bg-surface p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-lime hover:bg-card">
+              <li className="group relative h-full rounded-2xl glass glass-highlight p-6 transition-all duration-500 hover:-translate-y-1.5 hover:glass-glow">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center rounded-full bg-card px-3 py-1 text-[11px] font-mono uppercase tracking-widest text-muted-foreground group-hover:bg-lime group-hover:text-primary transition-colors">
+                  <span className="inline-flex items-center rounded-full glass-soft px-3 py-1 text-[11px] font-mono uppercase tracking-widest text-muted-foreground group-hover:bg-lime group-hover:text-primary transition-colors">
                     {s.day}
                   </span>
                   <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
@@ -540,7 +540,7 @@ function BeforeAfter() {
     <section id="switch" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 scroll-mt-24">
       <div
         ref={ref}
-        className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] border border-border bg-card p-6 sm:p-10 md:p-14"
+        className="relative overflow-hidden rounded-[1.75rem] md:rounded-[2.5rem] glass p-6 sm:p-10 md:p-14"
       >
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="max-w-xl">
@@ -590,7 +590,7 @@ function BeforeAfter() {
               </div>
 
               <div className="flex items-center justify-center text-muted-foreground">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full glass">
                   <ArrowRight className="h-5 w-5 hidden md:block" />
                   <ArrowDown className="h-5 w-5 md:hidden" />
                 </span>
@@ -599,7 +599,7 @@ function BeforeAfter() {
               <div className="min-w-0">
                 <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted-foreground mb-3">After</p>
                 <div
-                  className="rounded-3xl bg-lime p-6 sm:p-8 text-center transition-all duration-700"
+                  className="rounded-3xl glass-tint p-6 sm:p-8 text-center transition-all duration-700"
                   style={{
                     transform: collapsed ? "scale(1.03)" : "scale(1)",
                     boxShadow: collapsed
@@ -700,7 +700,7 @@ function Juggle() {
       <Reveal>
         <div
           ref={containerRef}
-          className="relative rounded-3xl bg-surface border border-border py-10 px-4 sm:py-12 sm:px-6 md:py-16 md:px-14 overflow-hidden"
+          className="relative rounded-3xl glass py-10 px-4 sm:py-12 sm:px-6 md:py-16 md:px-14 overflow-hidden"
         >
           {/* SVG: connection lines + endpoint dots - desktop only */}
           <svg
@@ -745,7 +745,7 @@ function Juggle() {
                 <li
                   key={`${n}-${i}`}
                   ref={(el) => { leftRefs.current[i] = el; }}
-                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
+                  className="rounded-xl glass px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
                 >
                   {n}
                 </li>
@@ -760,7 +760,7 @@ function Juggle() {
               />
               <div
                 ref={centerRef}
-                className="relative rounded-2xl bg-lime px-12 py-14 text-center shadow-lg min-w-[300px]"
+                className="relative rounded-2xl glass-tint px-12 py-14 text-center min-w-[300px]"
               >
                 <h3 className="font-display font-bold text-4xl leading-tight">No Need to Juggle</h3>
                 <p className="mt-3 text-sm font-mono text-primary/75">
@@ -774,7 +774,7 @@ function Juggle() {
                 <li
                   key={`${n}-${i}`}
                   ref={(el) => { rightRefs.current[i] = el; }}
-                  className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
+                  className="rounded-xl glass px-4 py-2 text-sm font-mono whitespace-nowrap select-none"
                 >
                   {n}
                 </li>
@@ -790,7 +790,7 @@ function Juggle() {
                 className="absolute inset-[-18px] rounded-3xl bg-lime/45 blur-2xl"
                 style={{ animation: "glow-pulse 4s ease-in-out infinite" }}
               />
-              <div className="relative rounded-2xl bg-lime px-8 py-8 text-center shadow-lg">
+              <div className="relative rounded-2xl glass-tint px-8 py-8 text-center">
                 <h3 className="font-display font-bold text-2xl leading-tight">No Need to Juggle</h3>
                 <p className="mt-2 text-xs font-mono text-primary/75">
                   Control full suite with single chat window
@@ -802,7 +802,7 @@ function Juggle() {
                 <li
                   key={`${n}-${i}`}
 
-                  className="rounded-xl bg-primary text-primary-foreground px-3.5 py-1.5 text-xs font-mono whitespace-nowrap select-none"
+                  className="rounded-xl glass px-3.5 py-1.5 text-xs font-mono whitespace-nowrap select-none"
                 >
                   {n}
                 </li>
@@ -848,7 +848,7 @@ function Testimonials() {
 
       {/* Mobile: single-card carousel */}
       <div className="md:hidden">
-        <article className="rounded-3xl p-6 min-h-[340px] flex flex-col justify-between bg-lime shadow-xl">
+        <article className="rounded-3xl p-6 min-h-[340px] flex flex-col justify-between glass-tint">
           <h3 className="font-display font-bold text-xl tracking-tight text-primary max-w-[16ch]">
             {testimonials[idx].title}
           </h3>
@@ -995,7 +995,7 @@ function Footer() {
   return (
     <footer id="contact" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-10">
       <div className="grid md:grid-cols-2 gap-5">
-        <div className="rounded-3xl bg-surface p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
+        <div className="rounded-3xl glass glass-highlight p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
           <div>
             <div className="flex items-center gap-2">
               <img src={logo.url} alt="Oltrid AI" className="h-7 w-auto" />
@@ -1025,7 +1025,7 @@ function Footer() {
           <p className="mt-8 text-xs text-muted-foreground">© 2026 Oltrid AI. Future of AI Powered Productivity.</p>
         </div>
 
-        <div id="signup" className="rounded-3xl bg-lime p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
+        <div id="signup" className="rounded-3xl glass-tint p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
           <div>
             <h3 className="font-display font-bold text-2xl md:text-3xl">STAY UPDATED</h3>
             <p className="mt-2 text-sm text-primary/80">Subscribe for event updates & exclusive content.</p>
@@ -1047,7 +1047,12 @@ function Footer() {
 
 function Landing() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative min-h-screen text-foreground">
+      <div className="liquid-bg">
+        <div className="liquid-blob h-[38rem] w-[38rem] -top-40 -left-32 bg-[oklch(0.92_0.11_190/0.55)]" />
+        <div className="liquid-blob h-[30rem] w-[30rem] top-1/3 -right-32 bg-[oklch(0.93_0.16_130/0.45)]" style={{ animationDelay: "-7s" }} />
+        <div className="liquid-blob h-[34rem] w-[34rem] bottom-0 left-1/3 bg-[oklch(0.9_0.08_260/0.45)]" style={{ animationDelay: "-14s" }} />
+      </div>
       <Nav />
       <main>
         <Hero />
