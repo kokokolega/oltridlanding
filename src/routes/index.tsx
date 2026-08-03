@@ -73,10 +73,10 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 function Nav() {
   const [open, setOpen] = useState(false);
   const links = [
-    { label: "Product", href: "#product" },
-    { label: "Demo", href: "#demo" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Blog", href: "/blog" },
+    { label: "Home", href: "#home" },
+    { label: "Features", href: "#features" },
+    { label: "Contact", href: "#contact" },
+    { label: "Switch", href: "#switch" },
   ];
 
   return (
@@ -306,7 +306,7 @@ function Hero() {
         </Reveal>
         <Reveal delay={240}>
           <p className="mt-6 text-sm md:text-base font-mono text-muted-foreground max-w-2xl mx-auto">
-            From idea to execution—chat, documents, files, automation, and memory in one place.
+            From idea to execution-chat, documents, files, automation, and memory in one place.
           </p>
         </Reveal>
 
@@ -322,7 +322,7 @@ function Hero() {
 }
 
 const whyItems = [
-  { n: "01", title: "NEVER LOSE CONTEXT", desc: "Pick up any project exactly where you left it — Oltrid carries the full history with you." },
+  { n: "01", title: "NEVER LOSE CONTEXT", desc: "Pick up any project exactly where you left it - Oltrid carries the full history with you." },
   { n: "02", title: "ONE AI THAT REMEMBERS EVERYTHING", desc: "Your decisions, files and preferences stay in memory, so you never repeat yourself again." },
   { n: "03", title: "STOP SWITCHING BETWEEN APPS", desc: "Docs, decks, sheets, sites and automations all live inside one chat window." },
   { n: "04", title: "COMPLETE WORK FASTER", desc: "Go from idea to finished deliverable in a single conversation, not a dozen tabs." },
@@ -416,7 +416,7 @@ function Suite() {
             One chat. Everything you can create.
           </h2>
           <p className="mt-3 text-sm md:text-base text-muted-foreground">
-            Ask once — Oltrid builds it, remembers it, and keeps improving it.
+            Ask once - Oltrid builds it, remembers it, and keeps improving it.
           </p>
         </div>
       </Reveal>
@@ -475,7 +475,7 @@ function Memory() {
               Memory-centric actions
             </h2>
             <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl">
-              One week, one thread. Oltrid already remembers everything — automatically.
+              One week, one thread. Oltrid already remembers everything - automatically.
             </p>
           </div>
         </Reveal>
@@ -680,7 +680,7 @@ function Juggle() {
           ref={containerRef}
           className="relative rounded-3xl bg-surface border border-border py-10 px-4 sm:py-12 sm:px-6 md:py-16 md:px-14 overflow-hidden"
         >
-          {/* SVG: connection lines + endpoint dots — desktop only */}
+          {/* SVG: connection lines + endpoint dots - desktop only */}
           <svg
             aria-hidden
             className="absolute inset-0 w-full h-full pointer-events-none hidden md:block"
@@ -702,7 +702,7 @@ function Juggle() {
             ))}
           </svg>
 
-          {/* Traveling light — desktop only */}
+          {/* Traveling light - desktop only */}
           <div className="absolute inset-0 pointer-events-none hidden md:block" style={{ zIndex: 1 }}>
             {allConns.map((c, i) => (
               <span
