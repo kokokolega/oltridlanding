@@ -408,7 +408,7 @@ function Suite() {
   }, [shown]);
 
   return (
-    <section ref={ref} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+    <section id="features" ref={ref} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 scroll-mt-24">
       <Reveal>
         <div className="text-center max-w-2xl mx-auto">
           <Eyebrow>The suite</Eyebrow>
