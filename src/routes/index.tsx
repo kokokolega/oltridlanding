@@ -154,8 +154,8 @@ function ChatInput() {
             <input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder="Ask Oltrid AI..."
-              className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-muted-foreground/70"
+              placeholder="How can i help you today?..........."
+              className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-[oklch(0.55_0.08_185)]" 
               aria-label="Ask Oltrid AI"
             />
           </div>
@@ -217,12 +217,6 @@ function Hero() {
             Everything and Gets Work Done.
           </h1>
         </Reveal>
-        <Reveal delay={240}>
-          <p className="mt-6 text-sm md:text-base font-mono text-muted-foreground max-w-2xl mx-auto">
-            From idea to execution-chat, documents, files, automation, and memory in one place.
-          </p>
-        </Reveal>
-
         <Reveal delay={360}>
           <div id="demo" className="mt-10 scroll-mt-24">
             <ChatInput />
