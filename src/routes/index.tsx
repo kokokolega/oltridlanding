@@ -140,12 +140,71 @@ function Nav() {
 }
 
 
+const AI_PROMPTS = [
+  "Plan my startup go-to-market strategy",
+  "Create a PRD for my mobile app idea",
+  "Summarize last quarter's sales report",
+  "Draft a follow-up email to my investors",
+  "Build a presentation deck for my pitch",
+  "Automate my weekly status updates",
+];
+
+type Phase = "typing" | "waiting" | "erasing";
+
+function useTypingPlaceholder({ paused }: { paused: boolean }) {
+  const [display, setDisplay] = useState("");
+  const [promptIndex, setPromptIndex] = useState(0);
+  const [phase, setPhase] = useState<Phase>("typing");
+
+  useEffect(() => {
+    if (paused) return;
+
+    let timeout: ReturnType<typeof setTimeout>;
+    const currentPrompt = AI_PROMPTS[promptIndex];
+
+    if (phase === "typing") {
+      if (display.length < currentPrompt.length) {
+        const charDelay = 45 + Math.random() * 75;
+        const pauseDelay = Math.random() < 0.12 ? 220 + Math.random() * 260 : 0;
+        timeout = setTimeout(() => {
+          setDisplay(currentPrompt.slice(0, display.length + 1));
+        }, charDelay + pauseDelay);
+      } else {
+        timeout = setTimeout(() => setPhase("waiting"), 1400 + Math.random() * 400);
+      }
+    } else if (phase === "waiting") {
+      timeout = setTimeout(() => setPhase("erasing"), 1600);
+    } else if (phase === "erasing") {
+      if (display.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplay(display.slice(0, -1));
+        }, 28 + Math.random() * 42);
+      } else {
+        timeout = setTimeout(() => {
+          setPromptIndex((i) => (i + 1) % AI_PROMPTS.length);
+          setPhase("typing");
+        }, 500);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [display, phase, promptIndex, paused]);
+
+  return { display };
+}
+
 function ChatInput() {
   const [value, setValue] = useState("");
+  const [focused, setFocused] = useState(false);
+  const { display } = useTypingPlaceholder({ paused: focused || value.length > 0 });
+
   const submit = (e?: React.FormEvent) => {
     e?.preventDefault();
     window.location.href = "https://app.oltrid.com/auth";
   };
+
+  const showPlaceholder = !focused && value === "";
+
   return (
     <form onSubmit={submit} className="relative mx-auto w-full max-w-2xl">
       <div className="chat-border-glow">
@@ -154,8 +213,10 @@ function ChatInput() {
             <input
               value={value}
               onChange={(e) => setValue(e.target.value)}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
               placeholder="Ask Oltrid AI..."
-              className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-muted-foreground/70"
+              className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-transparent"
               aria-label="Ask Oltrid AI"
             />
           </div>
@@ -185,6 +246,19 @@ function ChatInput() {
           </div>
         </div>
       </div>
+      {showPlaceholder && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-[1.5px] z-20 rounded-[calc(1.5rem-1.5px)] px-4 py-3"
+        >
+          <div className="relative w-full py-2">
+            <span className="ai-placeholder flex items-center text-sm md:text-base font-mono text-muted-foreground/70">
+              <span className="truncate">{display}</span>
+              <span className="ai-cursor" />
+            </span>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
