@@ -139,85 +139,9 @@ function Nav() {
   );
 }
 
-const aiPrompts = [
-  "Plan my startup",
-  "Create a PRD",
-  "Generate a presentation",
-  "Remember this forever",
-  "Build a workflow",
-  "Create a website",
-];
-
-
-function useTypingPlaceholder(active: boolean) {
-  const [text, setText] = useState("");
-  const idxRef = useRef(0);
-  const charRef = useRef(0);
-  const phaseRef = useRef<"typing" | "pause" | "erasing" | "wait">("typing");
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    if (!active) {
-      if (timerRef.current) clearTimeout(timerRef.current);
-      setText("");
-      charRef.current = 0;
-      phaseRef.current = "typing";
-      return;
-    }
-
-    const rand = (min: number, max: number) => min + Math.random() * (max - min);
-    let cancelled = false;
-
-    const tick = () => {
-      if (cancelled) return;
-      const prompt = aiPrompts[idxRef.current];
-      const phase = phaseRef.current;
-
-      if (phase === "typing") {
-        if (charRef.current < prompt.length) {
-          charRef.current += 1;
-          setText(prompt.slice(0, charRef.current));
-          // natural typing speed with occasional human pause
-          const delay = Math.random() < 0.12 ? rand(280, 520) : rand(55, 120);
-          timerRef.current = setTimeout(tick, delay);
-        } else {
-          phaseRef.current = "pause";
-          timerRef.current = setTimeout(tick, 1600);
-        }
-      } else if (phase === "pause") {
-        phaseRef.current = "erasing";
-        timerRef.current = setTimeout(tick, 60);
-      } else if (phase === "erasing") {
-        if (charRef.current > 0) {
-          charRef.current -= 1;
-          setText(prompt.slice(0, charRef.current));
-          timerRef.current = setTimeout(tick, rand(25, 55));
-        } else {
-          phaseRef.current = "wait";
-          idxRef.current = (idxRef.current + 1) % aiPrompts.length;
-          timerRef.current = setTimeout(tick, 450);
-        }
-      } else {
-        phaseRef.current = "typing";
-        timerRef.current = setTimeout(tick, 200);
-      }
-    };
-
-    timerRef.current = setTimeout(tick, 400);
-
-    return () => {
-      cancelled = true;
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [active]);
-
-  return text;
-}
 
 function ChatInput() {
   const [value, setValue] = useState("");
-  const [focused, setFocused] = useState(false);
-  const animated = useTypingPlaceholder(!focused && value.length === 0);
   const submit = (e?: React.FormEvent) => {
     e?.preventDefault();
     window.location.href = "https://app.oltrid.com/auth";
@@ -230,21 +154,10 @@ function ChatInput() {
             <input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              onFocus={() => setFocused(true)}
-              onBlur={() => setFocused(false)}
-              placeholder=" "
+              placeholder="Ask Oltrid AI..."
               className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-muted-foreground/70"
               aria-label="Ask Oltrid AI"
             />
-            {!focused && value.length === 0 && (
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 flex items-center text-sm md:text-base font-mono text-muted-foreground/70"
-              >
-                {animated}
-                <span className="ai-cursor ml-0.5" />
-              </span>
-            )}
           </div>
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-3 text-muted-foreground">
