@@ -148,40 +148,43 @@ function ChatInput() {
   };
   return (
     <form onSubmit={submit} className="relative mx-auto w-full max-w-2xl">
-      <div className="chat-border-glow">
-        <div className="relative z-10 rounded-[calc(1.5rem-1.5px)] glass px-4 py-3">
-          <div className="relative w-full py-2">
-            <input
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              placeholder="How can i help you today?..........."
-              className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-[oklch(0.55_0.08_185)]" 
-              aria-label="Ask Oltrid AI"
-            />
+      <div
+        className="rounded-3xl bg-white px-5 py-4"
+        style={{
+          border: "1px solid oklch(0.92 0.01 130)",
+          boxShadow:
+            "0 2px 12px 0 oklch(0 0 0 / 0.06), 8px 16px 48px -8px oklch(0.82 0.22 140 / 0.38), 0 0 0 1px oklch(0.93 0.01 130 / 0.5)",
+        }}
+      >
+        <input
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="How can i help you today?.........."
+          className="w-full bg-transparent outline-none text-sm md:text-[15px] font-mono placeholder:text-[oklch(0.52_0.08_185)] pb-3 pt-1"
+          aria-label="Ask Oltrid AI"
+        />
+        <div className="flex items-center justify-between pt-2 border-t border-[oklch(0.93_0.005_130)]">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-gray-100 transition" aria-label="Attach">
+              <Plus className="h-4 w-4" />
+            </button>
+            <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-gray-100 transition" aria-label="Emoji">
+              <Smile className="h-4 w-4" />
+            </button>
+            <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-gray-100 transition" aria-label="Image">
+              <ImageIcon className="h-4 w-4" />
+            </button>
           </div>
-          <div className="flex items-center justify-between pt-2">
-            <div className="flex items-center gap-3 text-muted-foreground">
-              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-white/50 transition" aria-label="Attach">
-                <Plus className="h-4 w-4" />
-              </button>
-              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-white/50 transition" aria-label="Emoji">
-                <Smile className="h-4 w-4" />
-              </button>
-              <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-white/50 transition" aria-label="Image">
-                <ImageIcon className="h-4 w-4" />
-              </button>
-            </div>
-            <div className="flex items-center gap-3 text-muted-foreground text-xs font-mono">
-              <button type="button" onClick={submit} className="inline-flex items-center gap-1 hover:text-foreground transition" aria-label="Default mode">
-                <FileText className="h-3.5 w-3.5" /> Default
-              </button>
-              <button type="button" onClick={submit} className="inline-flex items-center gap-1 hover:text-foreground transition" aria-label="General mode">
-                <Zap className="h-3.5 w-3.5" /> General
-              </button>
-              <button type="submit" className="p-2 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition" aria-label="Send">
-                <Mic className="h-4 w-4" />
-              </button>
-            </div>
+          <div className="flex items-center gap-3 text-muted-foreground text-xs font-mono">
+            <button type="button" onClick={submit} className="inline-flex items-center gap-1.5 hover:text-foreground transition" aria-label="Default mode">
+              <FileText className="h-3.5 w-3.5" /> Default
+            </button>
+            <button type="button" onClick={submit} className="inline-flex items-center gap-1.5 hover:text-foreground transition" aria-label="General mode">
+              <Zap className="h-3.5 w-3.5" /> General
+            </button>
+            <button type="submit" className="p-2 rounded-full bg-[oklch(0.15_0.01_260)] text-white hover:opacity-85 transition" aria-label="Send">
+              <Mic className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </div>
