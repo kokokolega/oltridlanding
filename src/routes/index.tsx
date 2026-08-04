@@ -142,8 +142,6 @@ function Nav() {
 
 function ChatInput() {
   const [value, setValue] = useState("");
-  const [focused, setFocused] = useState(false);
-  const animated = useTypingPlaceholder(!focused && value.length === 0);
   const submit = (e?: React.FormEvent) => {
     e?.preventDefault();
     window.location.href = "https://app.oltrid.com/auth";
@@ -156,21 +154,10 @@ function ChatInput() {
             <input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              onFocus={() => setFocused(true)}
-              onBlur={() => setFocused(false)}
-              placeholder=" "
+              placeholder="Ask Oltrid AI..."
               className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-muted-foreground/70"
               aria-label="Ask Oltrid AI"
             />
-            {!focused && value.length === 0 && (
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 flex items-center text-sm md:text-base font-mono text-muted-foreground/70"
-              >
-                {animated}
-                <span className="ai-cursor ml-0.5" />
-              </span>
-            )}
           </div>
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-3 text-muted-foreground">
