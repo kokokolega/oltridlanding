@@ -163,7 +163,7 @@ function ChatInput() {
           className="w-full bg-transparent outline-none text-sm md:text-[15px] font-mono placeholder:text-[oklch(0.52_0.08_185)] pb-3 pt-1"
           aria-label="Ask Oltrid AI"
         />
-        <div className="flex items-center justify-between pt-2 border-t border-[oklch(0.93_0.005_130)]">
+        <div className="flex items-center justify-between pt-2">
           <div className="flex items-center gap-2 text-muted-foreground">
             <button type="button" onClick={submit} className="p-1.5 rounded-full hover:bg-gray-100 transition" aria-label="Attach">
               <Plus className="h-4 w-4" />
