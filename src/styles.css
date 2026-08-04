@@ -141,7 +141,26 @@
   animation: chat-border-spin 4s linear infinite;
 }
 
+/* AI typing placeholder overlay */
+.ai-placeholder {
+  pointer-events: none;
+  user-select: none;
+}
 
+.ai-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: currentColor;
+  margin-left: 2px;
+  vertical-align: baseline;
+  animation: ai-cursor-blink 1.06s step-end infinite;
+}
+
+@keyframes ai-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
 
 @keyframes glow-rotate {
   from { transform: rotate(0deg); }
