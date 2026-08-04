@@ -219,15 +219,6 @@ function ChatInput() {
               className="relative z-10 w-full bg-transparent outline-none text-sm md:text-base font-mono placeholder:text-transparent"
               aria-label="Ask Oltrid AI"
             />
-            {showPlaceholder && (
-              <span
-                aria-hidden
-                className="ai-placeholder absolute inset-0 z-20 flex items-center text-sm md:text-base font-mono text-muted-foreground/70"
-              >
-                <span className="truncate">{display}</span>
-                <span className="ai-cursor" />
-              </span>
-            )}
           </div>
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-3 text-muted-foreground">
@@ -255,6 +246,19 @@ function ChatInput() {
           </div>
         </div>
       </div>
+      {showPlaceholder && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-[1.5px] z-20 rounded-[calc(1.5rem-1.5px)] px-4 py-3"
+        >
+          <div className="relative w-full py-2">
+            <span className="ai-placeholder flex items-center text-sm md:text-base font-mono text-muted-foreground/70">
+              <span className="truncate">{display}</span>
+              <span className="ai-cursor" />
+            </span>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
