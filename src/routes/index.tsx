@@ -28,9 +28,6 @@ import {
 
 } from "lucide-react";
 import logo from "@/assets/logo.png.asset.json";
-import avatar1 from "@/assets/avatar-1.jpg";
-import avatar2 from "@/assets/avatar-2.jpg";
-import avatar3 from "@/assets/avatar-3.jpg";
 import { subscribeEmail } from "@/lib/subscribe.functions";
 import { toast } from "sonner";
 
@@ -147,7 +144,13 @@ function ChatInput() {
     window.location.href = "https://app.oltrid.com/auth";
   };
   return (
-    <form onSubmit={submit} className="relative mx-auto w-full max-w-2xl">
+    <form
+      onSubmit={submit}
+      onClick={() => {
+        window.location.href = "https://app.oltrid.com/auth";
+      }}
+      className="relative mx-auto w-full max-w-2xl cursor-pointer"
+    >
       <div
         className="rounded-3xl bg-white px-5 py-4"
         style={{
@@ -727,9 +730,27 @@ function Juggle() {
 
 type T = { title: string; quote: string; name: string; role: string; avatar: string };
 const testimonials: T[] = [
-  { title: "IT REMEMBERS MY WHOLE PROJECT", quote: "Came back after a week and it still knew every decision we made. I stopped re-explaining context entirely.", name: "Mark V.", role: "Beta user · Discord", avatar: avatar1 },
-  { title: "REPLACED FOUR TABS", quote: "Docs, deck and the workflow all came out of one chat. My old stack is basically sitting unused now.", name: "Elena R.", role: "Beta user · X/Twitter", avatar: avatar2 },
-  { title: "IDEA TO DECK IN ONE GO", quote: "I described the launch on Monday and asked for the presentation on Friday. It just built it from memory.", name: "David L.", role: "Early access · Product feedback", avatar: avatar3 },
+  {
+    title: "IT REMEMBERS MY WHOLE PROJECT",
+    quote: "Came back after a week and it still knew every decision we made. I stopped re-explaining context entirely.",
+    name: "Arjun Mehta",
+    role: "Beta user · Bengaluru",
+    avatar: "https://images.pexels.com/photos/35052348/pexels-photo-35052348.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+  },
+  {
+    title: "REPLACED FOUR TABS",
+    quote: "Docs, deck and the workflow all came out of one chat. My old stack is basically sitting unused now.",
+    name: "Priya Nair",
+    role: "Beta user · Mumbai",
+    avatar: "https://images.pexels.com/photos/14408917/pexels-photo-14408917.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+  },
+  {
+    title: "IDEA TO DECK IN ONE GO",
+    quote: "I described the launch on Monday and asked for the presentation on Friday. It just built it from memory.",
+    name: "Rohan Kapoor",
+    role: "Early access · New Delhi",
+    avatar: "https://images.pexels.com/photos/9951800/pexels-photo-9951800.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+  },
 ];
 
 
