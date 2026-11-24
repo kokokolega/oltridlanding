@@ -79,7 +79,7 @@ function Nav() {
     <header className="sticky top-0 z-40 glass-soft border-b border-white/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 shrink-0">
-          <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-7 w-auto" />
+          <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-8 w-auto" />
         </a>
         <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
@@ -928,7 +928,7 @@ function Footer() {
         <div className="rounded-3xl glass glass-highlight p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
           <div>
             <div className="flex items-center gap-2">
-              <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-7 w-auto" />
+              <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-8 w-auto" />
             </div>
             <p className="mt-4 text-sm">Your AI workspace for everything.</p>
           </div>
