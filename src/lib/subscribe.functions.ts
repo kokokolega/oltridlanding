@@ -6,7 +6,7 @@ const schema = z.object({
 });
 
 export const subscribeEmail = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => schema.parse(data))
+  .validator((data: unknown) => schema.parse(data))
   .handler(async ({ data }) => {
     const lovableKey = process.env.LOVABLE_API_KEY;
     const sheetsKey = process.env.GOOGLE_SHEETS_API_KEY;
