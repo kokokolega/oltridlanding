@@ -19,7 +19,7 @@ export function InfoPage({
       <header className="sticky top-0 z-40 glass-soft border-b border-white/40">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-8 w-auto" />
+            <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-9 sm:h-10 w-auto max-w-full object-contain" />
           </Link>
           <Link
             to="/"
