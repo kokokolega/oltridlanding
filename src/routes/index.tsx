@@ -27,7 +27,6 @@ import {
   ArrowDown,
 
 } from "lucide-react";
-import logo from "@/assets/logo.png.asset.json";
 import { subscribeEmail } from "@/lib/subscribe.functions";
 import { toast } from "sonner";
 
@@ -80,7 +79,7 @@ function Nav() {
     <header className="sticky top-0 z-40 glass-soft border-b border-white/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 shrink-0">
-          <img src={logo.url} alt="Oltrid AI" className="h-7 w-auto" />
+          <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-7 w-auto" />
         </a>
         <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
@@ -520,7 +519,7 @@ function BeforeAfter() {
                       : "0 10px 40px -30px oklch(0.9 0.24 130)",
                   }}
                 >
-                  <img src={logo.url} alt="Oltrid AI" className="h-8 w-auto mx-auto" />
+                  <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-8 w-auto mx-auto" />
                   <p className="mt-4 font-display font-bold text-lg sm:text-xl text-primary leading-snug">
                     One place. One memory. One workflow.
                   </p>
@@ -929,7 +928,7 @@ function Footer() {
         <div className="rounded-3xl glass glass-highlight p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[320px]">
           <div>
             <div className="flex items-center gap-2">
-              <img src={logo.url} alt="Oltrid AI" className="h-7 w-auto" />
+              <img src="/OLTRID_logo_with_text_(1).png" alt="Oltrid AI" className="h-7 w-auto" />
             </div>
             <p className="mt-4 text-sm">Your AI workspace for everything.</p>
           </div>
